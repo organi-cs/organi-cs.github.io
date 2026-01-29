@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samputhy Khim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 175%;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: #0a0f1a;
+            color: #b8c0cc;
+            line-height: 1.7;
+        }
+
+        ::selection {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        a {
+            color: #60a5fa;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #93c5fd;
+        }
+
+        /* nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 24px;
+            background: rgba(10, 15, 26, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            font-size: 14px;
+        }
+
+        nav a {
+            color: #6b7280;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+        }
+
+        nav a:hover {
+            color: #b8c0cc;
+        }
+
+        /* main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 32px 80px;
+        }
+
+        /* sections */
+        section {
+            margin-bottom: 96px;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.15s; }
+        section:nth-child(3) { animation-delay: 0.2s; }
+        section:nth-child(4) { animation-delay: 0.25s; }
+        section:nth-child(5) { animation-delay: 0.3s; }
+        section:nth-child(6) { animation-delay: 0.35s; }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* hero */
+        .hero {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .profile-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: #1e293b;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            font-size: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            overflow: hidden;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-text h1 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .hero-text p {
+            font-size: 15px;
+            color: #8b949e;
+        }
+
+        /* section titles */
+        .section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: #60a5fa;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        /* organizations grid */
+        .org-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .org-item {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 28px 16px;
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .org-item:hover {
+            border-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .org-logo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 14px;
+            background: #1e293b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #475569;
+            overflow: hidden;
+        }
+
+        .org-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .org-name {
+            font-size: 11px;
+            color: #8b949e;
+            line-height: 1.4;
+        }
+
+        /* projects grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .project-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 28px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .project-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .project-card h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #e2e8f0;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-card .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .project-card .tag.wip {
+            color: #eab308;
+            background: rgba(234, 179, 8, 0.1);
+        }
+
+        .project-card p {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .project-card .tech {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: #475569;
+        }
+
+        /* achievements */
+        .achievement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .achievement {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .achievement:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .achievement-name {
+            font-size: 14px;
+            color: #b8c0cc;
+        }
+
+        .achievement-detail {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: #6b7280;
+            text-align: right;
+        }
+
+        /* contact */
+        .contact-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .contact-links a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: #6b7280;
+            transition: color 0.2s;
+        }
+
+        .contact-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* footer quote */
+        .footer-quote {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #1e293b;
+            font-style: italic;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        /* responsive */
+        @media (max-width: 540px) {
+            nav {
+                gap: 20px;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .org-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .achievement {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .achievement-detail {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#about">about</a>
+        <a href="#projects">projects</a>
+        <a href="#achievements">achievements</a>
+        <a href="#contact">contact</a>
+    </nav>
+
+    <div class="container">
+        <!-- hero -->
+        <section id="about">
+            <div class="hero">
+                <div class="profile-photo">
+                    <img src="photo.jpg" alt="Samputhy">
+                </div>
+                <div class="hero-text">
+                    <h1>hey, i'm samputhy (◕‿◕)</h1>
+                    <p>student from cambodia. into math, data science, and building things that solve real problems.</p>
+                </div>
+            </div>
+            <p style="font-size: 14px; color: #6b7280;">
+                i got into programming through competition math — now i'm figuring out how to make ml actually useful. currently exploring ways to make cambodian public data more accessible.
+            </p>
+        </section>
+
+        <!-- organizations -->
+        <section>
+            <div class="section-title">organizations</div>
+            <div class="org-grid">
+                <div class="org-item">
+                    <div class="org-logo">
+                       <img src="logos/cslc.png" alt="CSLC">
+                    </div>
+                    <div class="org-name">cambodian student leadership council</div>
+                </div>
+                <div class="org-item">
+                    <div class="org-logo">
+                        <img src="logos/ijhs.png" alt="IJHS">
+                    </div>
+                    <div class="org-name">international junior honour society</div>
+                </div>
+                <div class="org-item">
+                    <div class="org-logo">
+                        <img src="logos/ymo.png" alt="YMO">
+                    </div>
+                    <div class="org-name">youth mathematics organization</div>
+                </div>
+                <div class="org-item">
+                    <div class="org-logo">
+                        <img src="logos/spark.png" alt="SPARK">
+                    </div>
+                    <div class="org-name">phishblasters / spark</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- projects -->
+        <section id="projects">
+            <div class="section-title">projects</div>
+            <div class="project-grid">
+                <a href="https://github.com/organi-cs/camdata" class="project-card" style="text-decoration: none;">
+                    <h3>camdata <span class="tag wip">wip</span></h3>
+                    <p>dashboard for cambodian government data — exchange rates, air quality, stocks.</p>
+                    <div class="tech">python · streamlit · plotly</div>
+                </a>
+                <div class="project-card">
+                    <h3>phishblasters <span class="tag">live</span></h3>
+                    <p>cybersecurity education platform for asean students.</p>
+                    <div class="tech">python · javascript · firebase</div>
+                </div>
+                <div class="project-card">
+                    <h3>fiber analysis</h3>
+                    <p>ml model for forensic fiber identification. 1st place provincial science fair.</p>
+                    <div class="tech">python · machine learning</div>
+                </div>
+                <div class="project-card">
+                    <h3>simulations <span class="tag wip">soon</span></h3>
+                    <p>interactive visualizations — sorting algorithms, physics, data viz.</p>
+                    <div class="tech">javascript · canvas</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- achievements -->
+        <section id="achievements">
+            <div class="section-title">achievements</div>
+            <div class="achievement-list">
+                <div class="achievement">
+                    <span class="achievement-name">singapore international math competition</span>
+                    <span class="achievement-detail">gold · world rank ~8</span>
+                </div>
+                <div class="achievement">
+                    <span class="achievement-name">american mathematics olympiad</span>
+                    <span class="achievement-detail">gold · national rank 3</span>
+                </div>
+                <div class="achievement">
+                    <span class="achievement-name">national outstanding student (math)</span>
+                    <span class="achievement-detail">rank 3 · moeys cambodia</span>
+                </div>
+                <div class="achievement">
+                    <span class="achievement-name">math olympiad book series</span>
+                    <span class="achievement-detail">2 volumes · 300+ copies</span>
+                </div>
+                <div class="achievement">
+                    <span class="achievement-name">national junior cybersecurity olympiad</span>
+                    <span class="achievement-detail">bronze · nus</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- contact -->
+        <section id="contact">
+            <div class="section-title">contact</div>
+            <div class="contact-links">
+                <a href="/cdn-cgi/l/email-protection#640f0c0d09241705091411100c1d4a070b09">email</a>
+                <a href="https://github.com/organi-cs">github</a>
+                <a href="https://linkedin.com/in/samputhy">linkedin</a>
+            </div>
+
+            <p class="footer-quote">slowly building things, one commit at a time.</p>
