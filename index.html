@@ -3,27 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samputhy Khim — Student, Developer, Math Enthusiast</title>
-    <meta name="description" content="Samputhy Khim is a student from Cambodia interested in math, data science, and building tools that solve real problems. Gold medalist at SIMC, co-founder of PhishBlasters.">
-    <meta name="keywords" content="Samputhy Khim, Cambodia, student, developer, math olympiad, data science, machine learning, PhishBlasters, CamData">
-    <meta name="author" content="Samputhy Khim">
-    
-    <!-- Open Graph / Social -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Samputhy Khim — Student, Developer, Math Enthusiast">
-    <meta property="og:description" content="Student from Cambodia. Math, data science, and building things that solve real problems.">
-    <meta property="og:url" content="https://organi-cs.github.io">
-    <meta property="og:image" content="https://organi-cs.github.io/photo.png">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Samputhy Khim">
-    <meta name="twitter:description" content="Student from Cambodia. Math, data science, and building things.">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://organi-cs.github.io">
+    <title>Samputhy Khim — Portfolio</title>
+    <meta name="description" content="Samputhy Khim's portfolio. Student, developer, math enthusiast from Cambodia.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -31,627 +14,1572 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-dark: #3d3d3d;
+            --bg-panel: #6e6e6e;
+            --bg-light: #9e9e9e;
+            --border-dark: #2a2a2a;
+            --border-light: #b0b0b0;
+            --accent-blue: #0096ec;
+            --accent-red: #ff3333;
+            --accent-green: #00c800;
+            --accent-yellow: #ffcc00;
+            --text-white: #ffffff;
+            --text-gray: #cccccc;
+            --studs: #4a4a4a;
+        }
+
         html {
-            scroll-behavior: smooth;
-            font-size: 112%;
+            scroll-behavior: auto;
+            font-size: 18px;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #0a0f1a;
-            color: #c9d1d9;
-            line-height: 1.7;
+            font-family: 'VT323', monospace;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            font-size: 1.5rem;
+            line-height: 1.5;
+            min-height: 100vh;
+            cursor: var(--cursor-default);
+        }
+
+        /* Apply pointer cursor to ALL interactive elements */
+        a,
+        button,
+        [role="button"],
+        .clickable,
+        .nav-btn,
+        .contact-btn,
+        .hero-contact-btn,
+        .org-header,
+        .expandable-header,
+        .achievement-header,
+        .file-item,
+        .avatar-frame,
+        .panel-btn,
+        .org-link,
+        .link-btn,
+        .modal-close,
+        .popup-close,
+        .popup-btn {
+            cursor: var(--cursor-pointer) !important;
+        }
+
+        /* Pixelated rendering for icons/UI elements only, NOT photos */
+        .item-icon,
+        .file-icon,
+        .org-logo,
+        .expand-icon,
+        .stat-tag,
+        .status-tag,
+        .tech-tag,
+        .achievement-badge,
+        .file-type {
+            image-rendering: pixelated;
+        }
+
+        /* Photos get smooth rendering */
+        .avatar-frame img,
+        .modal-image {
+            image-rendering: auto;
+        }
+
+        /* Studs pattern background */
+        .studs-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 16px 16px, var(--studs) 6px, transparent 6px);
+            background-size: 32px 32px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
         }
 
         ::selection {
-            background: #3b82f6;
-            color: #fff;
+            background: var(--accent-blue);
+            color: var(--text-white);
         }
 
-        a {
-            color: #60a5fa;
-            text-decoration: none;
-            position: relative;
-        }
-
-        /* animated underline for links */
-        .styled-link {
-            position: relative;
-        }
-
-        .styled-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
+        /* ============ BLOG NOTIFICATION POPUP ============ */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: #60a5fa;
-            transition: width 0.3s ease;
-        }
-
-        .styled-link:hover::after {
             width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* nav */
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .popup-box {
+            background: var(--bg-panel);
+            border: 5px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+
+        .popup-header {
+            background: linear-gradient(180deg, #5a8dd9 0%, #3d6eb5 100%);
+            border-bottom: 4px solid var(--border-dark);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .popup-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            color: var(--text-white);
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+        }
+
+        .popup-close {
+            width: 24px;
+            height: 24px;
+            background: var(--bg-light);
+            border: 2px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--border-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-close:hover {
+            background: #aaa;
+        }
+
+        .popup-close:active {
+            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+        }
+
+        .popup-content {
+            padding: 24px;
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        .popup-icon {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 32px;
+            color: var(--border-dark);
+            margin-bottom: 16px;
+        }
+
+        .popup-text {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.1rem;
+            color: #3a3a3a;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .popup-btn {
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            color: var(--text-white);
+            background: linear-gradient(180deg, #5a8dd9 0%, #3d6eb5 100%);
+            border: 3px solid;
+            border-color: #7eb0f0 #1a4080 #1a4080 #7eb0f0;
+            padding: 12px 20px;
+            text-decoration: none;
+            margin: 6px;
+        }
+
+        .popup-btn:hover {
+            background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%);
+        }
+
+        .popup-btn.secondary {
+            background: linear-gradient(180deg, #5a5a5a 0%, #4a4a4a 100%);
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+        }
+
+        .popup-btn.secondary:hover {
+            background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 100%);
+        }
+
+        /* ============ NAVIGATION ============ */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            padding: 20px 32px;
-            background: rgba(10, 15, 26, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 100;
+            background: var(--bg-panel);
+            border-bottom: 5px solid var(--border-dark);
+            padding: 12px 20px;
+            z-index: 1000;
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        nav a {
-            color: #6b7280;
-            font-family: 'JetBrains Mono', monospace;
+        .nav-btn {
+            font-family: 'Press Start 2P', cursive;
             font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s, transform 0.3s;
+            color: var(--text-white);
+            background: linear-gradient(180deg, #5a5a5a 0%, #4a4a4a 50%, #3a3a3a 100%);
+            border: 4px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            padding: 12px 20px;
+            text-decoration: none;
+            transition: none;
         }
 
-        nav a:hover {
-            color: #f1f5f9;
-            transform: translateY(-2px);
+        .nav-btn:hover {
+            background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 50%, #4a4a4a 100%);
         }
 
-        /* main container */
+        .nav-btn:active {
+            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+        }
+
+        .nav-btn.blog-btn {
+            background: linear-gradient(180deg, #e85d04 0%, #dc2f02 100%);
+            border-color: #ff8c42 #9d0208 #9d0208 #ff8c42;
+            animation: blogPulse 2s ease-in-out infinite;
+        }
+
+        .nav-btn.blog-btn:hover {
+            background: linear-gradient(180deg, #f77f00 0%, #e85d04 100%);
+        }
+
+        @keyframes blogPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Main container */
         .container {
-            max-width: 880px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 120px 32px 80px;
-        }
-
-        /* sections - no scroll animation */
-        section {
-            margin-bottom: 64px;
-        }
-
-        /* hero */
-        .hero {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-            margin-bottom: 28px;
-        }
-
-        /* animated gradient border for profile */
-        .profile-wrapper {
+            padding: 100px 20px 60px;
             position: relative;
-            width: 130px;
-            height: 130px;
-            flex-shrink: 0;
+            z-index: 10;
         }
 
-        .profile-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: conic-gradient(
-                #3b82f6,
-                #8b5cf6,
-                #ec4899,
-                #f59e0b,
-                #10b981,
-                #3b82f6
-            );
-            border-radius: 50%;
-            animation: rotateBorder 4s linear infinite;
+        /* Panel */
+        .panel {
+            background: var(--bg-panel);
+            border: 5px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            margin-bottom: 32px;
         }
 
-        @keyframes rotateBorder {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .profile-photo {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #0a0f1a;
-            padding: 4px;
-            z-index: 1;
-        }
-
-        .profile-photo img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .hero-text h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #f1f5f9;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .wave {
-            display: inline-block;
-            animation: wave 2.5s ease-in-out infinite;
-            transform-origin: 70% 70%;
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            10% { transform: rotate(14deg); }
-            20% { transform: rotate(-8deg); }
-            30% { transform: rotate(14deg); }
-            40% { transform: rotate(-4deg); }
-            50% { transform: rotate(10deg); }
-            60%, 100% { transform: rotate(0deg); }
-        }
-
-        .hero-text p {
-            font-size: 16px;
-            color: #9ca3af;
-        }
-
-        .intro-text {
-            font-size: 15px;
-            color: #9ca3af;
-            max-width: 600px;
-        }
-
-        .intro-text strong {
-            color: #c9d1d9;
-            font-weight: 500;
-        }
-
-        /* section titles - colorful */
-        .section-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        .panel-header {
+            background: linear-gradient(180deg, #5a8dd9 0%, #3d6eb5 100%);
+            border-bottom: 5px solid var(--border-dark);
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .section-title.blue { color: #3b82f6; }
-        .section-title.purple { color: #a855f7; }
-        .section-title.emerald { color: #10b981; }
-        .section-title.amber { color: #f59e0b; }
-
-        .section-title::after {
-            content: '';
+        .panel-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            color: var(--text-white);
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
             flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, currentColor, transparent);
-            opacity: 0.3;
         }
 
-        /* organizations grid */
-        .org-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+        .panel-btn {
+            width: 28px;
+            height: 28px;
+            background: var(--bg-light);
+            border: 3px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            color: var(--border-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .panel-btn:active {
+            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+        }
+
+        .panel-content {
+            padding: 24px;
+            background: var(--bg-light);
+        }
+
+        .panel-content.collapsed {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero-content {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .avatar-frame {
+            width: 180px;
+            height: 180px;
+            background: var(--bg-dark);
+            border: 5px solid;
+            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+            padding: 6px;
+            flex-shrink: 0;
+        }
+
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6e9ecf 25%, #5a8ac0 25%, #5a8ac0 50%, #6e9ecf 50%, #6e9ecf 75%, #5a8ac0 75%);
+            background-size: 24px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 36px;
+            color: var(--text-white);
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+        }
+
+        .hero-info { flex: 1; }
+
+        .hero-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: var(--border-dark);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .hero-tagline {
+            font-family: 'VT323', monospace;
+            font-size: 1.6rem;
+            color: var(--border-dark);
+            margin-bottom: 16px;
+        }
+
+        .hero-bio {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.1rem;
+            color: #3a3a3a;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .stat-tags {
+            margin-bottom: 24px;
+        }
+
+        .stat-tag {
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            padding: 6px 12px;
+            margin: 4px 6px 4px 0;
+            border: 3px solid;
+        }
+
+        .stat-tag.gold { background: var(--accent-yellow); border-color: #cc9900 #ffee88 #ffee88 #cc9900; color: #4a3000; }
+        .stat-tag.blue { background: var(--accent-blue); border-color: #0077cc #66ccff #66ccff #0077cc; color: #003366; }
+        .stat-tag.green { background: var(--accent-green); border-color: #009000 #66ff66 #66ff66 #009000; color: #004000; }
+        .stat-tag.red { background: var(--accent-red); border-color: #cc0000 #ff8888 #ff8888 #cc0000; color: #400000; }
+
+        /* Contact in hero */
+        .hero-contact {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .hero-contact-btn {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--text-white);
+            background: linear-gradient(180deg, #5a8dd9 0%, #3d6eb5 100%);
+            border: 3px solid;
+            border-color: #7eb0f0 #1a4080 #1a4080 #7eb0f0;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-contact-btn:hover {
+            background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%);
+        }
+
+        .hero-contact-btn:active {
+            border-color: #1a4080 #7eb0f0 #7eb0f0 #1a4080;
+        }
+
+        section { margin-bottom: 32px; }
+
+        /* ============ IMAGE MODAL ============ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border: 6px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            background: var(--bg-panel);
+            padding: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-red);
+            border: 3px solid;
+            border-color: #ff8888 #cc0000 #cc0000 #ff8888;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #ff5555;
+        }
+
+        /* ============ ORGANIZATIONS ============ */
+        .org-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .org-card {
+            background: var(--bg-panel);
+            border: 4px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+        }
+
+        .org-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
             gap: 20px;
         }
 
-        .org-item {
-            background: linear-gradient(145deg, #111827, #0d1220);
-            border: 1px solid #1e293b;
-            border-radius: 12px;
-            padding: 28px 16px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: default;
+        .org-header:hover {
+            background: #7e7e7e;
         }
 
-        .org-item:nth-child(1):hover { border-color: #3b82f6; box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15); }
-        .org-item:nth-child(2):hover { border-color: #a855f7; box-shadow: 0 10px 40px rgba(168, 85, 247, 0.15); }
-        .org-item:nth-child(3):hover { border-color: #10b981; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.15); }
-        .org-item:nth-child(4):hover { border-color: #f59e0b; box-shadow: 0 10px 40px rgba(245, 158, 11, 0.15); }
-
-        .org-item:hover {
-            transform: translateY(-4px);
-        }
-
-        .org-item:hover .org-logo {
-            transform: scale(1.1) rotate(3deg);
+        .expand-icon {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: var(--text-white);
+            width: 28px;
+            height: 28px;
+            background: var(--bg-dark);
+            border: 3px solid var(--border-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .org-logo {
             width: 64px;
             height: 64px;
-            margin: 0 auto 14px;
-            background: #1e293b;
-            border-radius: 10px;
+            background: var(--bg-light);
+            border: 3px solid var(--border-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            color: #475569;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
 
         .org-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            image-rendering: auto;
         }
+
+        .org-logo-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--border-dark);
+            text-align: center;
+        }
+
+        .org-info { flex: 1; }
 
         .org-name {
+            font-family: 'Press Start 2P', cursive;
             font-size: 12px;
-            font-weight: 500;
-            color: #9ca3af;
-            line-height: 1.4;
-        }
-
-        /* projects grid */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .project-card {
-            background: linear-gradient(145deg, #111827, #0d1220);
-            border: 1px solid #1e293b;
-            border-radius: 12px;
-            padding: 28px;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .project-card:nth-child(1):hover { border-color: #3b82f6; box-shadow: 0 20px 40px rgba(59, 130, 246, 0.12); }
-        .project-card:nth-child(2):hover { border-color: #ec4899; box-shadow: 0 20px 40px rgba(236, 72, 153, 0.12); }
-        .project-card:nth-child(3):hover { border-color: #10b981; box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12); }
-        .project-card:nth-child(4):hover { border-color: #a855f7; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.12); }
-
-        .project-card h3 {
-            font-size: 17px;
-            font-weight: 600;
-            color: #f1f5f9;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .project-card .tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            font-weight: 500;
-            color: #22c55e;
-            background: rgba(34, 197, 94, 0.15);
-            padding: 3px 8px;
-            border-radius: 6px;
-        }
-
-        .project-card .tag.wip {
-            color: #fbbf24;
-            background: rgba(251, 191, 36, 0.15);
-        }
-
-        .project-card p {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 16px;
+            color: var(--text-white);
+            text-shadow: 2px 2px 0 var(--border-dark);
             line-height: 1.6;
         }
 
-        .project-card .tech {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            color: #4b5563;
-            font-weight: 500;
+        .org-role-preview {
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-top: 6px;
         }
 
-        /* achievements */
-        .achievement-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
+        .org-content {
+            display: none;
+            padding: 20px;
+            background: var(--bg-light);
+            border-top: 4px solid var(--border-dark);
         }
 
-        .achievement {
+        .org-content.expanded {
+            display: block;
+        }
+
+        .org-role {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .org-desc {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.1rem;
+            color: #3a3a3a;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .org-link {
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            color: var(--text-white);
+            background: linear-gradient(180deg, #5a5a5a 0%, #4a4a4a 100%);
+            border: 3px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            padding: 8px 14px;
+            text-decoration: none;
+        }
+
+        .org-link:hover {
+            background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 100%);
+        }
+
+        /* ============ EXPANDABLE CARDS (Projects) ============ */
+        .expandable-card {
+            background: var(--bg-panel);
+            border: 4px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            margin-bottom: 16px;
+        }
+
+        .expandable-header {
+            padding: 16px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid #1e293b;
-            transition: all 0.3s ease;
-            cursor: default;
+            gap: 16px;
+            background: var(--bg-panel);
         }
 
-        .achievement:hover {
-            padding-left: 12px;
-            background: linear-gradient(to right, rgba(59, 130, 246, 0.05), transparent);
+        .expandable-header:hover {
+            background: #7e7e7e;
         }
 
-        .achievement:last-child {
-            border-bottom: none;
+        .item-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--bg-dark);
+            border: 3px solid var(--border-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .achievement-name {
-            font-size: 15px;
-            font-weight: 500;
-            color: #c9d1d9;
+        .item-icon-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--text-gray);
+            text-align: center;
+            line-height: 1.3;
         }
 
-        .achievement-detail {
-            font-family: 'JetBrains Mono', monospace;
+        .item-main { flex: 1; }
+
+        .item-name {
+            font-family: 'Press Start 2P', cursive;
             font-size: 12px;
-            font-weight: 500;
-            color: #6b7280;
-            text-align: right;
-            background: #111827;
-            padding: 4px 10px;
-            border-radius: 6px;
+            color: var(--text-white);
+            text-shadow: 2px 2px 0 var(--border-dark);
+            margin-bottom: 6px;
+            line-height: 1.5;
         }
 
-        /* contact */
-        .contact-links {
-            display: flex;
-            gap: 32px;
+        .item-subtitle {
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            color: var(--text-gray);
         }
 
-        .contact-links a {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            font-weight: 500;
-            color: #6b7280;
-            transition: all 0.3s ease;
+        .status-tag {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            padding: 6px 10px;
+            flex-shrink: 0;
+        }
+
+        .status-tag.live { background: var(--accent-green); color: #004000; }
+        .status-tag.wip { background: var(--accent-yellow); color: #4a3000; }
+
+        .expandable-content {
+            display: none;
+            padding: 20px;
+            background: var(--bg-light);
+            border-top: 4px solid var(--border-dark);
+        }
+
+        .expandable-content.expanded {
+            display: block;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--border-dark);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .detail-text {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.1rem;
+            color: #3a3a3a;
+            line-height: 1.7;
+        }
+
+        .detail-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-list li {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.1rem;
+            color: #3a3a3a;
+            padding: 6px 0;
+            padding-left: 28px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .detail-list li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+        }
+
+        .tech-tags {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 8px;
         }
 
-        .contact-links a:hover {
-            color: #60a5fa;
-            transform: translateX(4px);
+        .tech-tag {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            background: var(--bg-dark);
+            color: var(--text-gray);
+            padding: 6px 10px;
+            border: 2px solid var(--border-dark);
         }
 
-        .contact-links a::before {
-            content: '→';
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s ease;
+        .link-btn {
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--text-white);
+            background: linear-gradient(180deg, #5a8dd9 0%, #3d6eb5 100%);
+            border: 3px solid;
+            border-color: #7eb0f0 #1a4080 #1a4080 #7eb0f0;
+            padding: 10px 16px;
+            text-decoration: none;
+            margin-top: 16px;
+            margin-right: 10px;
         }
 
-        .contact-links a:hover::before {
-            opacity: 1;
-            transform: translateX(0);
+        .link-btn:hover {
+            background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%);
         }
 
-        /* footer quote */
+        /* ============ ACHIEVEMENTS ============ */
+        .achievement-card {
+            background: var(--bg-panel);
+            border: 4px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            margin-bottom: 16px;
+        }
+
+        .achievement-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .achievement-header:hover {
+            background: #7e7e7e;
+        }
+
+        .achievement-info { flex: 1; }
+
+        .achievement-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            color: var(--text-white);
+            text-shadow: 2px 2px 0 var(--border-dark);
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .achievement-subtitle {
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            color: var(--text-gray);
+        }
+
+        .achievement-badge {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            padding: 8px 14px;
+            border: 3px solid;
+            white-space: nowrap;
+        }
+
+        .badge-gold { background: var(--accent-yellow); border-color: #cc9900 #ffee88 #ffee88 #cc9900; color: #4a3000; }
+        .badge-bronze { background: #cd853f; border-color: #8b5a2b #daa520 #daa520 #8b5a2b; color: #3d2b1f; }
+        .badge-special { background: #9966ff; border-color: #6633cc #cc99ff #cc99ff #6633cc; color: #1a0033; }
+
+        .achievement-content {
+            display: none;
+            padding: 16px 20px;
+            background: var(--bg-light);
+            border-top: 4px solid var(--border-dark);
+        }
+
+        .achievement-content.expanded {
+            display: block;
+        }
+
+        /* ============ FILES/DOWNLOADS ============ */
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .file-item {
+            background: var(--bg-panel);
+            border: 4px solid;
+            border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 12px;
+        }
+
+        .file-item:hover {
+            background: #7e7e7e;
+        }
+
+        .file-item:active {
+            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+        }
+
+        .file-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-dark);
+            border: 3px solid var(--border-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-icon-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--text-gray);
+        }
+
+        .file-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--text-white);
+            text-shadow: 2px 2px 0 var(--border-dark);
+            line-height: 1.5;
+        }
+
+        .file-size {
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            color: var(--text-gray);
+        }
+
+        .file-type {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            background: var(--bg-dark);
+            color: var(--accent-yellow);
+            padding: 4px 8px;
+            border: 2px solid var(--border-dark);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 28px;
+            border-top: 5px solid var(--border-dark);
+            margin-top: 28px;
+        }
+
+        .footer-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--text-gray);
+            line-height: 2;
+        }
+
         .footer-quote {
-            margin-top: 56px;
-            padding-top: 28px;
-            border-top: 1px solid #1e293b;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 12px;
             font-style: italic;
-            font-size: 15px;
-            color: #4b5563;
         }
 
-        .footer-quote .highlight {
-            color: #6b7280;
-            font-weight: 500;
-        }
-
-        /* responsive */
+        /* ============ RESPONSIVE - MOBILE FIX ============ */
         @media (max-width: 700px) {
-            html {
-                font-size: 100%;
+            html { font-size: 16px; }
+            
+            nav { 
+                gap: 8px; 
+                padding: 10px 12px; 
             }
-
-            nav {
-                gap: 24px;
-                padding: 16px 20px;
+            
+            /* FIXED: Larger tap targets on mobile */
+            .nav-btn { 
+                font-size: 11px; 
+                padding: 14px 16px;
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
-
-            .container {
-                padding: 100px 20px 60px;
+            
+            .container { padding: 100px 12px 40px; }
+            
+            .hero-content { 
+                flex-direction: column; 
+                align-items: center; 
+                text-align: center; 
             }
-
-            .hero {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
+            
+            .hero-contact { justify-content: center; }
+            
+            .hero-contact-btn {
+                padding: 14px 18px;
+                font-size: 11px;
+                min-height: 48px;
             }
-
-            .profile-wrapper {
-                width: 100px;
-                height: 100px;
+            
+            .avatar-frame { width: 140px; height: 140px; }
+            
+            .files-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .achievement-header { flex-wrap: wrap; }
+            
+            .org-header { flex-wrap: wrap; }
+            
+            .panel-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
             }
-
-            .hero-text h1 {
-                font-size: 22px;
+            
+            .expand-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
             }
-
-            .org-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .achievement {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-
-            .achievement-detail {
-                text-align: left;
-            }
-
-            .contact-links {
-                flex-direction: column;
-                gap: 16px;
+            
+            .popup-btn {
+                padding: 14px 20px;
+                font-size: 10px;
+                min-height: 48px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="studs-bg"></div>
+
+    <!-- Blog Notification Popup -->
+    <div class="popup-overlay" id="blogPopup">
+        <div class="popup-box">
+            <div class="popup-header">
+                <span class="popup-title">NEW!</span>
+                <button class="popup-close" id="popupClose">X</button>
+            </div>
+            <div class="popup-content">
+                <div class="popup-icon">[ ! ]</div>
+                <p class="popup-text">Hey! I started a blog where I write about math, coding, and random thoughts. Check it out!</p>
+                <a href="#" class="popup-btn">READ BLOG</a>
+                <button class="popup-btn secondary" id="popupDismiss">MAYBE LATER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal-overlay" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">X</button>
+            <img src="" alt="Expanded image" class="modal-image" id="modalImage">
+        </div>
+    </div>
+
     <nav>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#achievements">Achievements</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" class="nav-btn">ABOUT</a>
+        <a href="#orgs" class="nav-btn">ORGS</a>
+        <a href="#projects" class="nav-btn">PROJECTS</a>
+        <a href="#achievements" class="nav-btn">ACHIEVEMENTS</a>
+        <a href="#files" class="nav-btn">FILES</a>
+        <button class="nav-btn blog-btn" id="blogBtn">BLOG</button>
     </nav>
 
     <div class="container">
-        <!-- hero -->
+        <!-- Hero Panel with Contact -->
         <section id="about">
-            <div class="hero">
-                <div class="profile-wrapper">
-                    <div class="profile-photo">
-                        <img src="photo.png" alt="Samputhy">
-                    </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">PLAYER INFO</span>
+                    <button class="panel-btn panel-toggle">-</button>
                 </div>
-                <div class="hero-text">
-                    <h1>Hey, I'm Samputhy <span class="wave">👋</span></h1>
-                    <p>Student from Cambodia. Into math, data science, and building things that solve real problems.</p>
-                </div>
-            </div>
-            <p class="intro-text">
-                These days I'm into data science, ML, and figuring out how to make Cambodian public data less painful to access.<div><p class="intro-text"> I also design posters sometimes. Also tutor kids. Also explain why math is cool to people who didn't ask. In student orgs, I basically fix things and make things look nice.</p> </div>
-            </p>
-        </section>
-
-        <!-- organizations -->
-        <section>
-            <div class="section-title purple">Organizations</div>
-            <div class="org-grid">
-                <div class="org-item">
-                    <div class="org-logo">
-                        <img src="logos/cslc.png" alt="CSLC">
+                <div class="panel-content">
+                    <div class="hero-content">
+                        <div class="avatar-frame" data-image="photo.png">
+                            <img src="photo.png" alt="Samputhy" onerror="this.outerHTML='<div class=\'avatar-placeholder\'>SK</div>'">
+                        </div>
+                        <div class="hero-info">
+                            <h1 class="hero-name">SAMPUTHY KHIM</h1>
+                            <p class="hero-tagline">Student from Cambodia</p>
+                            <p class="hero-bio">
+                                Into data science, ML, and making Cambodian public data less painful to access. 
+                                I design posters, tutor kids, and explain why math is cool to people who didn't ask. 
+                                In student orgs, I fix things and make things look nice.
+                            </p>
+                            <div class="hero-contact">
+                                <a href="mailto:wis.chester.08@gmail.com" class="hero-contact-btn">EMAIL</a>
+                                <a href="https://github.com/organi-cs" class="hero-contact-btn">GITHUB</a>
+                                <a href="https://www.linkedin.com/in/samputhy-khim-a159b1339/" class="hero-contact-btn">LINKEDIN</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="org-name">Cambodian Student Leadership Council</div>
-                </div>
-                <div class="org-item">
-                    <div class="org-logo">
-                        <img src="logos/ijhs.png" alt="IJHS">
-                    </div>
-                    <div class="org-name">International Junior Honour Society</div>
-                </div>
-                <div class="org-item">
-                    <div class="org-logo">
-                        <img src="logos/ymo.png" alt="YMO">
-                    </div>
-                    <div class="org-name">Youth Mathematics Organization</div>
-                </div>
-                <div class="org-item">
-                    <div class="org-logo">
-                        <img src="logos/spark.png" alt="SPARK">
-                    </div>
-                    <div class="org-name">PhishBlasters / SPARK</div>
                 </div>
             </div>
         </section>
 
-        <!-- projects -->
+        <!-- Organizations Panel -->
+        <section id="orgs">
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">ORGANIZATIONS</span>
+                    <button class="panel-btn panel-toggle">-</button>
+                </div>
+                <div class="panel-content">
+                    <div class="org-list">
+                        
+                        <div class="org-card">
+                            <div class="org-header" data-expand="org-1">
+                                <div class="expand-icon">+</div>
+                                <div class="org-logo">
+                                    <img src="logos/cslc.png" alt="CSLC" onerror="this.outerHTML='<span class=\'org-logo-text\'>CSLC</span>'">
+                                </div>
+                                <div class="org-info">
+                                    <div class="org-name">CAMBODIAN STUDENT LEADERSHIP COUNCIL</div>
+                                    <div class="org-role-preview">Member</div>
+                                </div>
+                            </div>
+                            <div class="org-content" id="org-1">
+                                <div class="org-role">MEMBER</div>
+                                <p class="org-desc">Leadership development organization for Cambodian students. Participate in workshops, community projects, and national student initiatives.</p>
+                                <a href="#" class="org-link">VISIT WEBSITE</a>
+                            </div>
+                        </div>
+
+                        <div class="org-card">
+                            <div class="org-header" data-expand="org-2">
+                                <div class="expand-icon">+</div>
+                                <div class="org-logo">
+                                    <img src="logos/ijhs.png" alt="IJHS" onerror="this.outerHTML='<span class=\'org-logo-text\'>IJHS</span>'">
+                                </div>
+                                <div class="org-info">
+                                    <div class="org-name">INTERNATIONAL JUNIOR HONOUR SOCIETY</div>
+                                    <div class="org-role-preview">Member</div>
+                                </div>
+                            </div>
+                            <div class="org-content" id="org-2">
+                                <div class="org-role">MEMBER</div>
+                                <p class="org-desc">Recognition society for outstanding academic achievement, leadership, and community service among middle school students.</p>
+                                <a href="#" class="org-link">VISIT WEBSITE</a>
+                            </div>
+                        </div>
+
+                        <div class="org-card">
+                            <div class="org-header" data-expand="org-3">
+                                <div class="expand-icon">+</div>
+                                <div class="org-logo">
+                                    <img src="logos/ymo.png" alt="YMO" onerror="this.outerHTML='<span class=\'org-logo-text\'>YMO</span>'">
+                                </div>
+                                <div class="org-info">
+                                    <div class="org-name">YOUTH MATHEMATICS ORGANIZATION</div>
+                                    <div class="org-role-preview">Active Member</div>
+                                </div>
+                            </div>
+                            <div class="org-content" id="org-3">
+                                <div class="org-role">ACTIVE MEMBER</div>
+                                <p class="org-desc">Help organize math competitions and workshops. Create educational content and tutor younger students preparing for olympiads.</p>
+                                <a href="#" class="org-link">VISIT WEBSITE</a>
+                            </div>
+                        </div>
+
+                        <div class="org-card">
+                            <div class="org-header" data-expand="org-4">
+                                <div class="expand-icon">+</div>
+                                <div class="org-logo">
+                                    <img src="logos/spark.png" alt="SPARK" onerror="this.outerHTML='<span class=\'org-logo-text\'>SPARK</span>'">
+                                </div>
+                                <div class="org-info">
+                                    <div class="org-name">PHISHBLASTERS / SPARK</div>
+                                    <div class="org-role-preview">Co-Founder</div>
+                                </div>
+                            </div>
+                            <div class="org-content" id="org-4">
+                                <div class="org-role">CO-FOUNDER</div>
+                                <p class="org-desc">Founded cybersecurity education initiative for ASEAN students. Built the platform, created curriculum, and led outreach across Southeast Asia.</p>
+                                <a href="#" class="org-link">VISIT WEBSITE</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Panel -->
         <section id="projects">
-            <div class="section-title blue">Projects</div>
-            <div class="project-grid">
-                <a href="https://github.com/organi-cs/camdata" class="project-card" style="text-decoration: none;">
-                    <h3>CamData <span class="tag wip">WIP</span></h3>
-                    <p>Dashboard for Cambodian government data — exchange rates, air quality, stocks.</p>
-                    <div class="tech">Python · Streamlit · Plotly</div>
-                </a>
-                <div class="project-card">
-                    <h3>PhishBlasters <span class="tag">Live</span></h3>
-                    <p>Cybersecurity education platform for ASEAN students.</p>
-                    <div class="tech">Python · JavaScript · Firebase</div>
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">PROJECTS</span>
+                    <button class="panel-btn panel-toggle">-</button>
                 </div>
-                <div class="project-card">
-                    <h3>Fiber Analysis</h3>
-                    <p>ML model for forensic fiber identification. 1st place provincial science fair.</p>
-                    <div class="tech">Python · Machine Learning</div>
-                </div>
-                <div class="project-card">
-                    <h3>Simulations <span class="tag wip">Soon</span></h3>
-                    <p>Interactive visualizations — sorting algorithms, physics, data viz.</p>
-                    <div class="tech">JavaScript · Canvas</div>
+                <div class="panel-content">
+                    
+                    <!-- CamData -->
+                    <div class="expandable-card">
+                        <div class="expandable-header" data-expand="proj-1">
+                            <div class="expand-icon">+</div>
+                            <div class="item-icon">
+                                <span class="item-icon-text">DATA</span>
+                            </div>
+                            <div class="item-main">
+                                <div class="item-name">CAMDATA</div>
+                                <div class="item-subtitle">Cambodian Government Data Dashboard</div>
+                            </div>
+                            <span class="status-tag wip">WIP</span>
+                        </div>
+                        <div class="expandable-content" id="proj-1">
+                            <div class="detail-section">
+                                <div class="detail-label">DESCRIPTION</div>
+                                <p class="detail-text">A dashboard for accessing and visualizing Cambodian government data. Making public data actually accessible and usable for researchers, journalists, and citizens.</p>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">FEATURES</div>
+                                <ul class="detail-list">
+                                    <li>Real-time exchange rate tracking (NBC data)</li>
+                                    <li>Air quality monitoring across provinces</li>
+                                    <li>Stock market data visualization</li>
+                                    <li>Historical data export (CSV, JSON)</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">TECH STACK</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">PYTHON</span>
+                                    <span class="tech-tag">STREAMLIT</span>
+                                    <span class="tech-tag">PLOTLY</span>
+                                    <span class="tech-tag">PANDAS</span>
+                                </div>
+                            </div>
+                            <a href="https://github.com/organi-cs/camdata" class="link-btn">VIEW ON GITHUB</a>
+                        </div>
+                    </div>
+
+                    <!-- PhishBlasters -->
+                    <div class="expandable-card">
+                        <div class="expandable-header" data-expand="proj-2">
+                            <div class="expand-icon">+</div>
+                            <div class="item-icon">
+                                <span class="item-icon-text">SEC</span>
+                            </div>
+                            <div class="item-main">
+                                <div class="item-name">PHISHBLASTERS</div>
+                                <div class="item-subtitle">Cybersecurity Education Platform</div>
+                            </div>
+                            <span class="status-tag live">LIVE</span>
+                        </div>
+                        <div class="expandable-content" id="proj-2">
+                            <div class="detail-section">
+                                <div class="detail-label">DESCRIPTION</div>
+                                <p class="detail-text">Educational platform teaching cybersecurity fundamentals to ASEAN students. Interactive lessons, phishing simulations, and gamified learning paths.</p>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">MY ROLE</div>
+                                <ul class="detail-list">
+                                    <li>Co-founded the initiative</li>
+                                    <li>Built the web platform from scratch</li>
+                                    <li>Designed curriculum and learning modules</li>
+                                    <li>Led regional outreach across Southeast Asia</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">TECH STACK</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">PYTHON</span>
+                                    <span class="tech-tag">JAVASCRIPT</span>
+                                    <span class="tech-tag">FIREBASE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fiber Analysis -->
+                    <div class="expandable-card">
+                        <div class="expandable-header" data-expand="proj-3">
+                            <div class="expand-icon">+</div>
+                            <div class="item-icon">
+                                <span class="item-icon-text">ML</span>
+                            </div>
+                            <div class="item-main">
+                                <div class="item-name">FIBER ANALYSIS</div>
+                                <div class="item-subtitle">ML-Based Forensic Fiber Identification</div>
+                            </div>
+                            <span class="status-tag live">1ST</span>
+                        </div>
+                        <div class="expandable-content" id="proj-3">
+                            <div class="detail-section">
+                                <div class="detail-label">DESCRIPTION</div>
+                                <p class="detail-text">Machine learning model for identifying and classifying forensic fiber samples from microscopy images.</p>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">ACHIEVEMENTS</div>
+                                <ul class="detail-list">
+                                    <li>1st Place - Provincial Science Fair</li>
+                                    <li>95%+ classification accuracy</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">TECH STACK</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">PYTHON</span>
+                                    <span class="tech-tag">OPENCV</span>
+                                    <span class="tech-tag">SCIKIT-LEARN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulations -->
+                    <div class="expandable-card">
+                        <div class="expandable-header" data-expand="proj-4">
+                            <div class="expand-icon">+</div>
+                            <div class="item-icon">
+                                <span class="item-icon-text">VIZ</span>
+                            </div>
+                            <div class="item-main">
+                                <div class="item-name">SIMULATIONS</div>
+                                <div class="item-subtitle">Interactive Algorithm Visualizations</div>
+                            </div>
+                            <span class="status-tag wip">SOON</span>
+                        </div>
+                        <div class="expandable-content" id="proj-4">
+                            <div class="detail-section">
+                                <div class="detail-label">DESCRIPTION</div>
+                                <p class="detail-text">Collection of interactive visualizations for learning algorithms and concepts through visual exploration.</p>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">PLANNED</div>
+                                <ul class="detail-list">
+                                    <li>Sorting algorithms visualizer</li>
+                                    <li>Pathfinding (A*, Dijkstra)</li>
+                                    <li>Physics simulations</li>
+                                    <li>Fractal generators</li>
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">TECH STACK</div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">JAVASCRIPT</span>
+                                    <span class="tech-tag">CANVAS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Math Books -->
+                    <div class="expandable-card">
+                        <div class="expandable-header" data-expand="proj-5">
+                            <div class="expand-icon">+</div>
+                            <div class="item-icon">
+                                <span class="item-icon-text">BOOK</span>
+                            </div>
+                            <div class="item-main">
+                                <div class="item-name">MATH OLYMPIAD BOOKS</div>
+                                <div class="item-subtitle">Problem Collection Series</div>
+                            </div>
+                            <span class="status-tag live">PUBLISHED</span>
+                        </div>
+                        <div class="expandable-content" id="proj-5">
+                            <div class="detail-section">
+                                <div class="detail-label">DESCRIPTION</div>
+                                <p class="detail-text">Two-volume series of math olympiad problems with detailed solutions for Cambodian students.</p>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-label">DETAILS</div>
+                                <ul class="detail-list">
+                                    <li>2 volumes published</li>
+                                    <li>300+ copies distributed</li>
+                                    <li>Covers algebra, geometry, combinatorics, number theory</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- achievements -->
+        <!-- Achievements Panel -->
         <section id="achievements">
-            <div class="section-title amber">Achievements</div>
-            <div class="achievement-list">
-                <div class="achievement">
-                    <span class="achievement-name">Singapore International Math Competition</span>
-                    <span class="achievement-detail">Gold · World Rank ~8</span>
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">ACHIEVEMENTS</span>
+                    <button class="panel-btn panel-toggle">-</button>
                 </div>
-                <div class="achievement">
-                    <span class="achievement-name">American Mathematics Olympiad</span>
-                    <span class="achievement-detail">Gold · National Rank 3</span>
-                </div>
-                <div class="achievement">
-                    <span class="achievement-name">National Outstanding Student (Math)</span>
-                    <span class="achievement-detail">Rank 3 · MoEYS Cambodia</span>
-                </div>
-                <div class="achievement">
-                    <span class="achievement-name">Math Olympiad Book Series</span>
-                    <span class="achievement-detail">2 Volumes · 300+ Copies</span>
-                </div>
-                <div class="achievement">
-                    <span class="achievement-name">National Junior Cybersecurity Olympiad</span>
-                    <span class="achievement-detail">Bronze · NUS</span>
+                <div class="panel-content">
+                    
+                    <div class="achievement-card">
+                        <div class="achievement-header" data-expand="ach-1">
+                            <div class="expand-icon">+</div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">SINGAPORE INTERNATIONAL MATH COMPETITION</div>
+                                <div class="achievement-subtitle">World Rank ~8</div>
+                            </div>
+                            <span class="achievement-badge badge-gold">GOLD</span>
+                        </div>
+                        <div class="achievement-content" id="ach-1">
+                            <p class="detail-text">Competed against students from 30+ countries. Ranked approximately 8th globally out of thousands of participants.</p>
+                        </div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-header" data-expand="ach-2">
+                            <div class="expand-icon">+</div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">AMERICAN MATHEMATICS OLYMPIAD</div>
+                                <div class="achievement-subtitle">National Rank 3</div>
+                            </div>
+                            <span class="achievement-badge badge-gold">GOLD</span>
+                        </div>
+                        <div class="achievement-content" id="ach-2">
+                            <p class="detail-text">Achieved 3rd place nationally in Cambodia's AMO competition. Problems covered advanced algebra, geometry, and combinatorics.</p>
+                        </div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-header" data-expand="ach-3">
+                            <div class="expand-icon">+</div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">NATIONAL OUTSTANDING STUDENT (MATH)</div>
+                                <div class="achievement-subtitle">MoEYS Cambodia</div>
+                            </div>
+                            <span class="achievement-badge badge-gold">RANK 3</span>
+                        </div>
+                        <div class="achievement-content" id="ach-3">
+                            <p class="detail-text">Recognized by the Ministry of Education, Youth and Sport of Cambodia for excellence in mathematics.</p>
+                        </div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-header" data-expand="ach-4">
+                            <div class="expand-icon">+</div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">MATH OLYMPIAD BOOK SERIES</div>
+                                <div class="achievement-subtitle">2 Volumes Published</div>
+                            </div>
+                            <span class="achievement-badge badge-special">300+ COPIES</span>
+                        </div>
+                        <div class="achievement-content" id="ach-4">
+                            <p class="detail-text">Authored and self-published two books of olympiad problems with solutions. Distributed to schools across Cambodia.</p>
+                        </div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-header" data-expand="ach-5">
+                            <div class="expand-icon">+</div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">NATIONAL JUNIOR CYBERSECURITY OLYMPIAD</div>
+                                <div class="achievement-subtitle">NUS Singapore</div>
+                            </div>
+                            <span class="achievement-badge badge-bronze">BRONZE</span>
+                        </div>
+                        <div class="achievement-content" id="ach-5">
+                            <p class="detail-text">Competed in cybersecurity challenges covering cryptography, web security, forensics, and network security.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- contact -->
-        <section id="contact">
-            <div class="section-title emerald">Contact</div>
-            <div class="contact-links">
-                <a href="mailto:wis.chester.08@gmail.com">Email</a>
-                <a href="https://github.com/organi-cs">GitHub</a>
-                <a href="https://www.linkedin.com/in/samputhy-khim-a159b1339/">LinkedIn</a>
-            </div>
+        <!-- FILES Panel -->
+        <section id="files">
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">FILES / DOWNLOADS</span>
+                    <button class="panel-btn panel-toggle">-</button>
+                </div>
+                <div class="panel-content">
+                    <div class="files-grid">
+                        
+                        <a href="files/cv.pdf" class="file-item" download>
+                            <div class="file-icon">
+                                <span class="file-icon-text">DOC</span>
+                            </div>
+                            <div class="file-name">MY CV</div>
+                            <div class="file-size">Resume / Curriculum Vitae</div>
+                            <span class="file-type">PDF</span>
+                        </a>
 
-            <p class="footer-quote">Slowly building things, <span class="highlight">one commit at a time.</span></p>
+                        <a href="files/photos.zip" class="file-item" download>
+                            <div class="file-icon">
+                                <span class="file-icon-text">IMG</span>
+                            </div>
+                            <div class="file-name">PHOTOS</div>
+                            <div class="file-size">Events & Activities</div>
+                            <span class="file-type">ZIP</span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
         </section>
+
+        <footer class="footer">
+            <p class="footer-quote">"Slowly building things, one commit at a time."</p>
+            <p class="footer-text">SAMPUTHY // CAMBODIA // 2025</p>
+        </footer>
     </div>
 
     <script>
-        // 3D tilt effect on project cards
-        const cards = document.querySelectorAll('.project-card');
-        
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 12;
-                const rotateY = (centerX - x) / 12;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-            });
+        // Blog popup - show on first visit or when clicking BLOG button
+        const blogPopup = document.getElementById('blogPopup');
+        const blogBtn = document.getElementById('blogBtn');
+        const popupClose = document.getElementById('popupClose');
+        const popupDismiss = document.getElementById('popupDismiss');
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        // Show popup on page load (only once per session)
+        if (!sessionStorage.getItem('blogPopupShown')) {
+            setTimeout(() => {
+                blogPopup.classList.add('active');
+                sessionStorage.setItem('blogPopupShown', 'true');
+            }, 1500);
+        }
+
+        // Show popup when clicking BLOG button
+        blogBtn.addEventListener('click', () => {
+            blogPopup.classList.add('active');
+        });
+
+        // Close popup
+        popupClose.addEventListener('click', () => {
+            blogPopup.classList.remove('active');
+        });
+
+        popupDismiss.addEventListener('click', () => {
+            blogPopup.classList.remove('active');
+        });
+
+        blogPopup.addEventListener('click', (e) => {
+            if (e.target === blogPopup) {
+                blogPopup.classList.remove('active');
+            }
+        });
+
+        // Image modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+
+        document.querySelectorAll('[data-image]').forEach(el => {
+            el.addEventListener('click', function() {
+                const imgSrc = this.getAttribute('data-image');
+                modalImage.src = imgSrc;
+                modal.classList.add('active');
+            });
+        });
+
+        modalClose.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Close modals with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modal.classList.remove('active');
+                blogPopup.classList.remove('active');
+            }
+        });
+
+        // Panel toggle (minimize/expand)
+        document.querySelectorAll('.panel-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const panel = this.closest('.panel');
+                const content = panel.querySelector('.panel-content');
+                
+                if (content.classList.contains('collapsed')) {
+                    content.classList.remove('collapsed');
+                    this.textContent = '-';
+                } else {
+                    content.classList.add('collapsed');
+                    this.textContent = '+';
+                }
+            });
+        });
+
+        // Expandable sections toggle
+        document.querySelectorAll('[data-expand]').forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-expand');
+                const content = document.getElementById(targetId);
+                const icon = this.querySelector('.expand-icon');
+                
+                if (content) {
+                    if (content.classList.contains('expanded')) {
+                        content.classList.remove('expanded');
+                        if (icon) icon.textContent = '+';
+                    } else {
+                        content.classList.add('expanded');
+                        if (icon) icon.textContent = '-';
+                    }
+                }
+            });
+        });
+
+        // Nav scroll - choppy 4-step jump
+        document.querySelectorAll('.nav-btn[href]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const targetY = target.offsetTop - 80;
+                    const startY = window.scrollY;
+                    const diff = targetY - startY;
+                    const steps = 4;
+                    let currentStep = 0;
+
+                    function step() {
+                        currentStep++;
+                        window.scrollTo(0, startY + (diff * (currentStep / steps)));
+                        if (currentStep < steps) {
+                            setTimeout(step, 50);
+                        }
+                    }
+                    step();
+                }
             });
         });
     </script>
