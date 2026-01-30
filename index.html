@@ -27,6 +27,7 @@
             --text-white: #ffffff;
             --text-gray: #cccccc;
             --studs: #4a4a4a;
+        
         }
 
         html {
@@ -44,56 +45,29 @@
             cursor: var(--cursor-default);
         }
 
-        /* Apply pointer cursor to ALL interactive elements */
-        a,
-        button,
-        [role="button"],
-        .clickable,
-        .nav-btn,
-        .contact-btn,
-        .hero-contact-btn,
-        .org-header,
-        .expandable-header,
-        .achievement-header,
-        .file-item,
-        .avatar-frame,
-        .panel-btn,
-        .org-link,
-        .link-btn,
-        .modal-close,
-        .popup-close,
-        .popup-btn {
+        a, button, [role="button"], .clickable, .nav-btn, .contact-btn,
+        .hero-contact-btn, .org-header, .expandable-header, .achievement-header,
+        .file-item, .avatar-frame, .panel-btn, .org-link, .link-btn,
+        .modal-close, .popup-close, .popup-btn {
             cursor: var(--cursor-pointer) !important;
         }
 
-        /* Pixelated rendering for icons/UI elements only, NOT photos */
-        .item-icon,
-        .file-icon,
-        .org-logo,
-        .expand-icon,
-        .stat-tag,
-        .status-tag,
-        .tech-tag,
-        .achievement-badge,
-        .file-type {
+        .item-icon, .file-icon, .org-logo, .expand-icon, .stat-tag,
+        .status-tag, .tech-tag, .achievement-badge, .file-type {
             image-rendering: pixelated;
         }
 
-        /* Photos get smooth rendering */
-        .avatar-frame img,
-        .modal-image {
+        .avatar-frame img, .modal-image {
             image-rendering: auto;
         }
 
-        /* Studs pattern background */
         .studs-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 16px 16px, var(--studs) 6px, transparent 6px);
+            background-image: radial-gradient(circle at 16px 16px, var(--studs) 6px, transparent 6px);
             background-size: 32px 32px;
             opacity: 0.3;
             pointer-events: none;
@@ -105,7 +79,7 @@
             color: var(--text-white);
         }
 
-        /* ============ BLOG NOTIFICATION POPUP ============ */
+        /*  BLOG POPUP  */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -117,6 +91,7 @@
             z-index: 3000;
             justify-content: center;
             align-items: center;
+            padding: 16px;
         }
 
         .popup-overlay.active {
@@ -128,8 +103,7 @@
             border: 5px solid;
             border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
             max-width: 400px;
-            width: 90%;
-            position: relative;
+            width: 100%;
         }
 
         .popup-header {
@@ -162,13 +136,8 @@
             justify-content: center;
         }
 
-        .popup-close:hover {
-            background: #aaa;
-        }
-
-        .popup-close:active {
-            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
-        }
+        .popup-close:hover { background: #aaa; }
+        .popup-close:active { border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark); }
 
         .popup-content {
             padding: 24px;
@@ -204,20 +173,16 @@
             margin: 6px;
         }
 
-        .popup-btn:hover {
-            background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%);
-        }
+        .popup-btn:hover { background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%); }
 
         .popup-btn.secondary {
             background: linear-gradient(180deg, #5a5a5a 0%, #4a4a4a 100%);
             border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
         }
 
-        .popup-btn.secondary:hover {
-            background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 100%);
-        }
+        .popup-btn.secondary:hover { background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 100%); }
 
-        /* ============ NAVIGATION ============ */
+        /*  NAVIGATION  */
         nav {
             position: fixed;
             top: 0;
@@ -225,33 +190,29 @@
             right: 0;
             background: var(--bg-panel);
             border-bottom: 5px solid var(--border-dark);
-            padding: 12px 20px;
+            padding: 12px 16px;
             z-index: 1000;
             display: flex;
             justify-content: center;
-            gap: 12px;
+            align-items: center;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .nav-btn {
             font-family: 'Press Start 2P', cursive;
-            font-size: 14px;
+            font-size: 12px;
             color: var(--text-white);
             background: linear-gradient(180deg, #5a5a5a 0%, #4a4a4a 50%, #3a3a3a 100%);
             border: 4px solid;
             border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
-            padding: 12px 20px;
+            padding: 10px 14px;
             text-decoration: none;
-            transition: none;
+            white-space: nowrap;
         }
 
-        .nav-btn:hover {
-            background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 50%, #4a4a4a 100%);
-        }
-
-        .nav-btn:active {
-            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
-        }
+        .nav-btn:hover { background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 50%, #4a4a4a 100%); }
+        .nav-btn:active { border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark); }
 
         .nav-btn.blog-btn {
             background: linear-gradient(180deg, #e85d04 0%, #dc2f02 100%);
@@ -259,9 +220,7 @@
             animation: blogPulse 2s ease-in-out infinite;
         }
 
-        .nav-btn.blog-btn:hover {
-            background: linear-gradient(180deg, #f77f00 0%, #e85d04 100%);
-        }
+        .nav-btn.blog-btn:hover { background: linear-gradient(180deg, #f77f00 0%, #e85d04 100%); }
 
         @keyframes blogPulse {
             0%, 100% { transform: scale(1); }
@@ -272,7 +231,7 @@
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 100px 20px 60px;
+            padding: 110px 20px 60px;
             position: relative;
             z-index: 10;
         }
@@ -314,20 +273,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
-        .panel-btn:active {
-            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
-        }
+        .panel-btn:active { border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark); }
 
         .panel-content {
             padding: 24px;
             background: var(--bg-light);
         }
 
-        .panel-content.collapsed {
-            display: none;
-        }
+        .panel-content.collapsed { display: none; }
 
         /* Hero Section */
         .hero-content {
@@ -391,9 +347,7 @@
             margin-bottom: 20px;
         }
 
-        .stat-tags {
-            margin-bottom: 24px;
-        }
+        .stat-tags { margin-bottom: 24px; }
 
         .stat-tag {
             display: inline-block;
@@ -409,7 +363,6 @@
         .stat-tag.green { background: var(--accent-green); border-color: #009000 #66ff66 #66ff66 #009000; color: #004000; }
         .stat-tag.red { background: var(--accent-red); border-color: #cc0000 #ff8888 #ff8888 #cc0000; color: #400000; }
 
-        /* Contact in hero */
         .hero-contact {
             display: flex;
             gap: 12px;
@@ -426,22 +379,14 @@
             border-color: #7eb0f0 #1a4080 #1a4080 #7eb0f0;
             padding: 10px 16px;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .hero-contact-btn:hover {
-            background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%);
-        }
-
-        .hero-contact-btn:active {
-            border-color: #1a4080 #7eb0f0 #7eb0f0 #1a4080;
-        }
+        .hero-contact-btn:hover { background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%); }
+        .hero-contact-btn:active { border-color: #1a4080 #7eb0f0 #7eb0f0 #1a4080; }
 
         section { margin-bottom: 32px; }
 
-        /* ============ IMAGE MODAL ============ */
+        /*  IMAGE MODAL  */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -453,11 +398,10 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            padding: 16px;
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal-content {
             position: relative;
@@ -476,26 +420,24 @@
 
         .modal-close {
             position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 40px;
-            height: 40px;
+            top: -15px;
+            right: -15px;
+            width: 36px;
+            height: 36px;
             background: var(--accent-red);
             border: 3px solid;
             border-color: #ff8888 #cc0000 #cc0000 #ff8888;
             font-family: 'Press Start 2P', cursive;
-            font-size: 14px;
+            font-size: 12px;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .modal-close:hover {
-            background: #ff5555;
-        }
+        .modal-close:hover { background: #ff5555; }
 
-        /* ============ ORGANIZATIONS ============ */
+        /*  ORGANIZATIONS  */
         .org-list {
             display: flex;
             flex-direction: column;
@@ -512,12 +454,10 @@
             padding: 16px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
         }
 
-        .org-header:hover {
-            background: #7e7e7e;
-        }
+        .org-header:hover { background: #7e7e7e; }
 
         .expand-icon {
             font-family: 'Press Start 2P', cursive;
@@ -534,8 +474,8 @@
         }
 
         .org-logo {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             background: var(--bg-light);
             border: 3px solid var(--border-dark);
             display: flex;
@@ -554,16 +494,16 @@
 
         .org-logo-text {
             font-family: 'Press Start 2P', cursive;
-            font-size: 10px;
+            font-size: 8px;
             color: var(--border-dark);
             text-align: center;
         }
 
-        .org-info { flex: 1; }
+        .org-info { flex: 1; min-width: 0; }
 
         .org-name {
             font-family: 'Press Start 2P', cursive;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-white);
             text-shadow: 2px 2px 0 var(--border-dark);
             line-height: 1.6;
@@ -583,9 +523,7 @@
             border-top: 4px solid var(--border-dark);
         }
 
-        .org-content.expanded {
-            display: block;
-        }
+        .org-content.expanded { display: block; }
 
         .org-role {
             font-family: 'Press Start 2P', cursive;
@@ -614,11 +552,9 @@
             text-decoration: none;
         }
 
-        .org-link:hover {
-            background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 100%);
-        }
+        .org-link:hover { background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 100%); }
 
-        /* ============ EXPANDABLE CARDS (Projects) ============ */
+        /*  EXPANDABLE CARDS (Projects)  */
         .expandable-card {
             background: var(--bg-panel);
             border: 4px solid;
@@ -628,19 +564,18 @@
 
         .expandable-header {
             padding: 16px;
-            display: flex;
+            display: grid;
+            grid-template-columns: auto auto 1fr auto;
             align-items: center;
             gap: 16px;
             background: var(--bg-panel);
         }
 
-        .expandable-header:hover {
-            background: #7e7e7e;
-        }
+        .expandable-header:hover { background: #7e7e7e; }
 
         .item-icon {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             background: var(--bg-dark);
             border: 3px solid var(--border-dark);
             display: flex;
@@ -651,13 +586,15 @@
 
         .item-icon-text {
             font-family: 'Press Start 2P', cursive;
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-gray);
             text-align: center;
             line-height: 1.3;
         }
 
-        .item-main { flex: 1; }
+        .item-main {
+            min-width: 0;
+        }
 
         .item-name {
             font-family: 'Press Start 2P', cursive;
@@ -670,8 +607,9 @@
 
         .item-subtitle {
             font-family: 'VT323', monospace;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--text-gray);
+            line-height: 1.3;
         }
 
         .status-tag {
@@ -679,6 +617,8 @@
             font-size: 8px;
             padding: 6px 10px;
             flex-shrink: 0;
+            white-space: nowrap;
+            align-self: flex-start;
         }
 
         .status-tag.live { background: var(--accent-green); color: #004000; }
@@ -691,17 +631,10 @@
             border-top: 4px solid var(--border-dark);
         }
 
-        .expandable-content.expanded {
-            display: block;
-        }
+        .expandable-content.expanded { display: block; }
 
-        .detail-section {
-            margin-bottom: 20px;
-        }
-
-        .detail-section:last-child {
-            margin-bottom: 0;
-        }
+        .detail-section { margin-bottom: 20px; }
+        .detail-section:last-child { margin-bottom: 0; }
 
         .detail-label {
             font-family: 'Press Start 2P', cursive;
@@ -771,11 +704,9 @@
             margin-right: 10px;
         }
 
-        .link-btn:hover {
-            background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%);
-        }
+        .link-btn:hover { background: linear-gradient(180deg, #6a9de9 0%, #4d7ec5 100%); }
 
-        /* ============ ACHIEVEMENTS ============ */
+        /*  ACHIEVEMENTS  */
         .achievement-card {
             background: var(--bg-panel);
             border: 4px solid;
@@ -785,16 +716,15 @@
 
         .achievement-header {
             padding: 16px;
-            display: flex;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
             align-items: center;
             gap: 16px;
         }
 
-        .achievement-header:hover {
-            background: #7e7e7e;
-        }
+        .achievement-header:hover { background: #7e7e7e; }
 
-        .achievement-info { flex: 1; }
+        .achievement-info { min-width: 0; }
 
         .achievement-name {
             font-family: 'Press Start 2P', cursive;
@@ -817,6 +747,7 @@
             padding: 8px 14px;
             border: 3px solid;
             white-space: nowrap;
+            align-self: flex-start;
         }
 
         .badge-gold { background: var(--accent-yellow); border-color: #cc9900 #ffee88 #ffee88 #cc9900; color: #4a3000; }
@@ -830,14 +761,12 @@
             border-top: 4px solid var(--border-dark);
         }
 
-        .achievement-content.expanded {
-            display: block;
-        }
+        .achievement-content.expanded { display: block; }
 
-        /* ============ FILES/DOWNLOADS ============ */
+        /*  FILES  */
         .files-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 16px;
         }
 
@@ -855,17 +784,12 @@
             gap: 12px;
         }
 
-        .file-item:hover {
-            background: #7e7e7e;
-        }
-
-        .file-item:active {
-            border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
-        }
+        .file-item:hover { background: #7e7e7e; }
+        .file-item:active { border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark); }
 
         .file-icon {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             background: var(--bg-dark);
             border: 3px solid var(--border-dark);
             display: flex;
@@ -925,65 +849,158 @@
             font-style: italic;
         }
 
-        /* ============ RESPONSIVE - MOBILE FIX ============ */
-        @media (max-width: 700px) {
+        /*  MOBILE RESPONSIVE  */
+        @media (max-width: 600px) {
             html { font-size: 16px; }
             
-            nav { 
-                gap: 8px; 
-                padding: 10px 12px; 
+            /* Nav: horizontal scroll instead of wrap */
+            nav {
+                justify-content: flex-start;
+                overflow-x: auto;
+                overflow-y: hidden;
+                flex-wrap: nowrap;
+                gap: 8px;
+                padding: 10px 12px;
+                -webkit-overflow-scrolling: touch;
             }
             
-            /* FIXED: Larger tap targets on mobile */
-            .nav-btn { 
-                font-size: 11px; 
-                padding: 14px 16px;
-                min-height: 48px;
-                display: flex;
+            nav::-webkit-scrollbar { display: none; }
+            nav { -ms-overflow-style: none; scrollbar-width: none; }
+            
+            .nav-btn {
+                font-size: 10px;
+                padding: 12px 14px;
+                flex-shrink: 0;
+            }
+            
+            .container { padding: 90px 12px 40px; }
+            
+            /* Hero mobile */
+            .hero-content {
+                flex-direction: column;
                 align-items: center;
-                justify-content: center;
+                text-align: center;
             }
             
-            .container { padding: 100px 12px 40px; }
-            
-            .hero-content { 
-                flex-direction: column; 
-                align-items: center; 
-                text-align: center; 
-            }
-            
+            .hero-name { font-size: 18px; }
             .hero-contact { justify-content: center; }
             
             .hero-contact-btn {
-                padding: 14px 18px;
-                font-size: 11px;
-                min-height: 48px;
+                padding: 12px 14px;
+                font-size: 9px;
             }
             
             .avatar-frame { width: 140px; height: 140px; }
             
-            .files-grid { grid-template-columns: repeat(2, 1fr); }
+            /* Project cards mobile - stack vertically */
+            .expandable-header {
+                grid-template-columns: auto 1fr;
+                grid-template-rows: auto auto;
+                gap: 12px;
+            }
             
-            .achievement-header { flex-wrap: wrap; }
+            .expandable-header .expand-icon {
+                grid-row: 1 / 3;
+            }
             
-            .org-header { flex-wrap: wrap; }
+            .expandable-header .item-icon {
+                display: none; /* Hide icon on mobile to save space */
+            }
+            
+            .expandable-header .item-main {
+                grid-column: 2;
+            }
+            
+            .expandable-header .status-tag {
+                grid-column: 2;
+                justify-self: start;
+            }
+            
+            .item-name { font-size: 10px; }
+            .item-subtitle { font-size: 1.1rem; }
+            
+            /* Achievement cards mobile */
+            .achievement-header {
+                grid-template-columns: auto 1fr;
+                grid-template-rows: auto auto;
+                gap: 10px;
+            }
+            
+            .achievement-header .expand-icon {
+                grid-row: 1 / 3;
+            }
+            
+            .achievement-header .achievement-info {
+                grid-column: 2;
+            }
+            
+            .achievement-header .achievement-badge {
+                grid-column: 2;
+                justify-self: start;
+            }
+            
+            .achievement-name { font-size: 9px; }
+            
+            /* Org cards mobile */
+            .org-header {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .org-logo {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .org-name { font-size: 9px; }
+            
+            /* Files grid */
+            .files-grid { grid-template-columns: 1fr 1fr; }
+            
+            .file-icon {
+                width: 56px;
+                height: 56px;
+            }
+            
+            .file-name { font-size: 8px; }
+            
+            /* Panel adjustments */
+            .panel-content { padding: 16px; }
+            .panel-title { font-size: 12px; }
             
             .panel-btn {
-                width: 36px;
-                height: 36px;
+                width: 32px;
+                height: 32px;
                 font-size: 14px;
             }
             
             .expand-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
             }
             
+            /* Popup mobile */
             .popup-btn {
-                padding: 14px 20px;
-                font-size: 10px;
-                min-height: 48px;
+                display: block;
+                width: 100%;
+                margin: 6px 0;
+                padding: 14px 16px;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 380px) {
+            .nav-btn {
+                font-size: 9px;
+                padding: 10px 12px;
+            }
+            
+            .hero-name { font-size: 16px; }
+            
+            .stat-tag {
+                font-size: 8px;
+                padding: 4px 8px;
             }
         }
     </style>
@@ -991,7 +1008,7 @@
 <body>
     <div class="studs-bg"></div>
 
-    <!-- Blog Notification Popup -->
+    <!-- Blog Popup -->
     <div class="popup-overlay" id="blogPopup">
         <div class="popup-box">
             <div class="popup-header">
@@ -1025,7 +1042,7 @@
     </nav>
 
     <div class="container">
-        <!-- Hero Panel with Contact -->
+        <!-- Hero Panel -->
         <section id="about">
             <div class="panel">
                 <div class="panel-header">
@@ -1045,6 +1062,7 @@
                                 I design posters, tutor kids, and explain why math is cool to people who didn't ask. 
                                 In student orgs, I fix things and make things look nice.
                             </p>
+                        
                             <div class="hero-contact">
                                 <a href="mailto:wis.chester.08@gmail.com" class="hero-contact-btn">EMAIL</a>
                                 <a href="https://github.com/organi-cs" class="hero-contact-btn">GITHUB</a>
@@ -1056,7 +1074,7 @@
             </div>
         </section>
 
-        <!-- Organizations Panel -->
+        <!-- Organizations -->
         <section id="orgs">
             <div class="panel">
                 <div class="panel-header">
@@ -1065,7 +1083,6 @@
                 </div>
                 <div class="panel-content">
                     <div class="org-list">
-                        
                         <div class="org-card">
                             <div class="org-header" data-expand="org-1">
                                 <div class="expand-icon">+</div>
@@ -1137,13 +1154,12 @@
                                 <a href="#" class="org-link">VISIT WEBSITE</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Panel -->
+        <!-- Projects -->
         <section id="projects">
             <div class="panel">
                 <div class="panel-header">
@@ -1151,14 +1167,10 @@
                     <button class="panel-btn panel-toggle">-</button>
                 </div>
                 <div class="panel-content">
-                    
-                    <!-- CamData -->
                     <div class="expandable-card">
                         <div class="expandable-header" data-expand="proj-1">
                             <div class="expand-icon">+</div>
-                            <div class="item-icon">
-                                <span class="item-icon-text">DATA</span>
-                            </div>
+                            <div class="item-icon"><span class="item-icon-text">DATA</span></div>
                             <div class="item-main">
                                 <div class="item-name">CAMDATA</div>
                                 <div class="item-subtitle">Cambodian Government Data Dashboard</div>
@@ -1192,13 +1204,10 @@
                         </div>
                     </div>
 
-                    <!-- PhishBlasters -->
                     <div class="expandable-card">
                         <div class="expandable-header" data-expand="proj-2">
                             <div class="expand-icon">+</div>
-                            <div class="item-icon">
-                                <span class="item-icon-text">SEC</span>
-                            </div>
+                            <div class="item-icon"><span class="item-icon-text">SEC</span></div>
                             <div class="item-main">
                                 <div class="item-name">PHISHBLASTERS</div>
                                 <div class="item-subtitle">Cybersecurity Education Platform</div>
@@ -1230,13 +1239,10 @@
                         </div>
                     </div>
 
-                    <!-- Fiber Analysis -->
                     <div class="expandable-card">
                         <div class="expandable-header" data-expand="proj-3">
                             <div class="expand-icon">+</div>
-                            <div class="item-icon">
-                                <span class="item-icon-text">ML</span>
-                            </div>
+                            <div class="item-icon"><span class="item-icon-text">ML</span></div>
                             <div class="item-main">
                                 <div class="item-name">FIBER ANALYSIS</div>
                                 <div class="item-subtitle">ML-Based Forensic Fiber Identification</div>
@@ -1266,13 +1272,10 @@
                         </div>
                     </div>
 
-                    <!-- Simulations -->
                     <div class="expandable-card">
                         <div class="expandable-header" data-expand="proj-4">
                             <div class="expand-icon">+</div>
-                            <div class="item-icon">
-                                <span class="item-icon-text">VIZ</span>
-                            </div>
+                            <div class="item-icon"><span class="item-icon-text">VIZ</span></div>
                             <div class="item-main">
                                 <div class="item-name">SIMULATIONS</div>
                                 <div class="item-subtitle">Interactive Algorithm Visualizations</div>
@@ -1303,13 +1306,10 @@
                         </div>
                     </div>
 
-                    <!-- Math Books -->
                     <div class="expandable-card">
                         <div class="expandable-header" data-expand="proj-5">
                             <div class="expand-icon">+</div>
-                            <div class="item-icon">
-                                <span class="item-icon-text">BOOK</span>
-                            </div>
+                            <div class="item-icon"><span class="item-icon-text">BOOK</span></div>
                             <div class="item-main">
                                 <div class="item-name">MATH OLYMPIAD BOOKS</div>
                                 <div class="item-subtitle">Problem Collection Series</div>
@@ -1331,12 +1331,11 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- Achievements Panel -->
+        <!-- Achievements -->
         <section id="achievements">
             <div class="panel">
                 <div class="panel-header">
@@ -1344,7 +1343,6 @@
                     <button class="panel-btn panel-toggle">-</button>
                 </div>
                 <div class="panel-content">
-                    
                     <div class="achievement-card">
                         <div class="achievement-header" data-expand="ach-1">
                             <div class="expand-icon">+</div>
@@ -1414,12 +1412,11 @@
                             <p class="detail-text">Competed in cybersecurity challenges covering cryptography, web security, forensics, and network security.</p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- FILES Panel -->
+        <!-- Files -->
         <section id="files">
             <div class="panel">
                 <div class="panel-header">
@@ -1428,25 +1425,18 @@
                 </div>
                 <div class="panel-content">
                     <div class="files-grid">
-                        
                         <a href="files/cv.pdf" class="file-item" download>
-                            <div class="file-icon">
-                                <span class="file-icon-text">DOC</span>
-                            </div>
+                            <div class="file-icon"><span class="file-icon-text">DOC</span></div>
                             <div class="file-name">MY CV</div>
                             <div class="file-size">Resume / Curriculum Vitae</div>
                             <span class="file-type">PDF</span>
                         </a>
-
                         <a href="files/photos.zip" class="file-item" download>
-                            <div class="file-icon">
-                                <span class="file-icon-text">IMG</span>
-                            </div>
+                            <div class="file-icon"><span class="file-icon-text">IMG</span></div>
                             <div class="file-name">PHOTOS</div>
                             <div class="file-size">Events & Activities</div>
                             <span class="file-type">ZIP</span>
                         </a>
-
                     </div>
                 </div>
             </div>
@@ -1459,13 +1449,12 @@
     </div>
 
     <script>
-        // Blog popup - show on first visit or when clicking BLOG button
+        // Blog popup
         const blogPopup = document.getElementById('blogPopup');
         const blogBtn = document.getElementById('blogBtn');
         const popupClose = document.getElementById('popupClose');
         const popupDismiss = document.getElementById('popupDismiss');
 
-        // Show popup on page load (only once per session)
         if (!sessionStorage.getItem('blogPopupShown')) {
             setTimeout(() => {
                 blogPopup.classList.add('active');
@@ -1473,63 +1462,37 @@
             }, 1500);
         }
 
-        // Show popup when clicking BLOG button
-        blogBtn.addEventListener('click', () => {
-            blogPopup.classList.add('active');
-        });
+        blogBtn.addEventListener('click', () => blogPopup.classList.add('active'));
+        popupClose.addEventListener('click', () => blogPopup.classList.remove('active'));
+        popupDismiss.addEventListener('click', () => blogPopup.classList.remove('active'));
+        blogPopup.addEventListener('click', (e) => { if (e.target === blogPopup) blogPopup.classList.remove('active'); });
 
-        // Close popup
-        popupClose.addEventListener('click', () => {
-            blogPopup.classList.remove('active');
-        });
-
-        popupDismiss.addEventListener('click', () => {
-            blogPopup.classList.remove('active');
-        });
-
-        blogPopup.addEventListener('click', (e) => {
-            if (e.target === blogPopup) {
-                blogPopup.classList.remove('active');
-            }
-        });
-
-        // Image modal functionality
+        // Image modal
         const modal = document.getElementById('imageModal');
         const modalImage = document.getElementById('modalImage');
         const modalClose = document.getElementById('modalClose');
 
         document.querySelectorAll('[data-image]').forEach(el => {
             el.addEventListener('click', function() {
-                const imgSrc = this.getAttribute('data-image');
-                modalImage.src = imgSrc;
+                modalImage.src = this.getAttribute('data-image');
                 modal.classList.add('active');
             });
         });
 
-        modalClose.addEventListener('click', function() {
-            modal.classList.remove('active');
-        });
+        modalClose.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-
-        // Close modals with Escape key
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 modal.classList.remove('active');
                 blogPopup.classList.remove('active');
             }
         });
 
-        // Panel toggle (minimize/expand)
+        // Panel toggle
         document.querySelectorAll('.panel-toggle').forEach(btn => {
             btn.addEventListener('click', function() {
-                const panel = this.closest('.panel');
-                const content = panel.querySelector('.panel-content');
-                
+                const content = this.closest('.panel').querySelector('.panel-content');
                 if (content.classList.contains('collapsed')) {
                     content.classList.remove('collapsed');
                     this.textContent = '-';
@@ -1540,13 +1503,11 @@
             });
         });
 
-        // Expandable sections toggle
+        // Expandable sections
         document.querySelectorAll('[data-expand]').forEach(trigger => {
             trigger.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-expand');
-                const content = document.getElementById(targetId);
+                const content = document.getElementById(this.getAttribute('data-expand'));
                 const icon = this.querySelector('.expand-icon');
-                
                 if (content) {
                     if (content.classList.contains('expanded')) {
                         content.classList.remove('expanded');
@@ -1559,7 +1520,7 @@
             });
         });
 
-        // Nav scroll - choppy 4-step jump
+        // Nav scroll
         document.querySelectorAll('.nav-btn[href]').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1568,17 +1529,13 @@
                     const targetY = target.offsetTop - 80;
                     const startY = window.scrollY;
                     const diff = targetY - startY;
-                    const steps = 4;
-                    let currentStep = 0;
-
-                    function step() {
-                        currentStep++;
-                        window.scrollTo(0, startY + (diff * (currentStep / steps)));
-                        if (currentStep < steps) {
-                            setTimeout(step, 50);
-                        }
+                    let step = 0;
+                    function animate() {
+                        step++;
+                        window.scrollTo(0, startY + (diff * (step / 4)));
+                        if (step < 4) setTimeout(animate, 50);
                     }
-                    step();
+                    animate();
                 }
             });
         });
