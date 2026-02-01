@@ -1,0 +1,65 @@
+import '@/styles/globals.css'
+
+export const metadata = {
+  metadataBase: new URL('https://organi-cs.github.io'),
+  title: {
+    default: 'Samputhy Khim — Student, Developer, Math Enthusiast',
+    template: '%s | Samputhy Khim'
+  },
+  description: 'Samputhy Khim is a student from Cambodia interested in math, data science, and building tools that solve real problems. Gold medalist at SIMC, co-founder of PhishBlasters.',
+  keywords: ['Samputhy Khim', 'Cambodia', 'student', 'developer', 'math olympiad', 'data science', 'machine learning', 'PhishBlasters', 'CamData'],
+  authors: [{ name: 'Samputhy Khim' }],
+  creator: 'Samputhy Khim',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://organi-cs.github.io',
+    siteName: 'Samputhy Khim',
+    title: 'Samputhy Khim — Student, Developer, Math Enthusiast',
+    description: 'Student from Cambodia. Math, data science, and building things that solve real problems.',
+    images: [
+      {
+        url: '/photo.png',
+        width: 400,
+        height: 400,
+        alt: 'Samputhy Khim',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Samputhy Khim',
+    description: 'Student from Cambodia. Math, data science, and building things.',
+    images: ['/photo.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add your Google Search Console verification code here
+    // google: 'your-verification-code',
+  },
+}
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="canonical" href="https://organi-cs.github.io" />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body>
+        <div className="studs-bg" />
+        {children}
+      </body>
+    </html>
+  )
+}
