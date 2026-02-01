@@ -1,133 +1,29 @@
-# Samputhy Khim — Portfolio
+# Hey, you're here? Here's more about me! ദ്ദി (◝ ⩊ ◜).ᐟ
 
-A retro Roblox-styled portfolio built with Next.js.
+Hi hi! I'm **Samputhy**, a student from **Cambodia** 🇰🇭. I'm super into math, CS, and building tools that actually help people.
 
-## Features
+I love **competition math**, **cybersecurity**, and lately I've been obsessing over how to make Cambodian public data easier to access. When I'm not studying or staring at terminal windows, I'm usually tutoring math, training ML models, or designing posters for student orgs. ૮ ˶ᵔ ᵕ ᵔ˶ ა
 
-- 🎮 Retro early-Roblox aesthetic
-- 📝 Markdown blog support
-- 🔍 SEO optimized (sitemap, meta tags, Open Graph)
-- 📱 Mobile responsive
-- ⚡ Static site generation for GitHub Pages
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ installed
-- npm or yarn
-
-### Installation
-
-```bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see your site.
-
-### Building for Production
-
-```bash
-# Build static site
-npm run build
-
-# The output will be in the 'out' folder
-```
-
-## Adding Blog Posts
-
-1. Create a new `.md` file in `content/blog/`
-2. Add frontmatter at the top:
-
-```markdown
----
-title: "Your Post Title"
-date: "2025-02-01"
-excerpt: "A short description of your post"
-tags: ["tag1", "tag2"]
 ---
 
-Your content here...
-```
+###  About This Site
 
-3. Rebuild the site
+I wanted something unique, so I built this site with a **Retro Roblox** aesthetic — think early 2000s game UI with beveled borders and pixel fonts.
 
-## Project Structure
+* **Style:** Retro OS / Early Roblox 
+* **Vibe:** Chunky panels, custom XP cursors, studs background
+* **Tech:** Next.js, React, Static Export
 
-```
-├── content/
-│   └── blog/           # Markdown blog posts
-├── public/
-│   ├── logos/          # Organization logos
-│   ├── files/          # Downloadable files (CV, etc.)
-│   └── photo.png       # Profile photo
-├── src/
-│   ├── app/            # Next.js app router pages
-│   ├── components/     # Reusable React components
-│   ├── lib/            # Utility functions (blog parser)
-│   └── styles/         # Global CSS
-```
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat-square&logo=javascript&logoColor=%23F7DF1E)
+![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg?style=flat-square&logo=css3&logoColor=white)
 
-## Deploying to GitHub Pages
+---
 
-1. Push to your GitHub repo
-2. Go to Settings → Pages
-3. Set source to "GitHub Actions"
-4. Create `.github/workflows/deploy.yml` (see below)
+###  What I'm Currently Working on!
 
-### GitHub Actions Workflow
-
-Create `.github/workflows/deploy.yml`:
-
-```yaml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Build
-        run: npm run build
-      
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
-```
-
-## SEO Notes
-
-- All meta tags are set in `src/app/layout.js`
-- Sitemap auto-generates at `/sitemap.xml`
-- Robots.txt auto-generates at `/robots.txt`
-- Each blog post has its own meta tags
-
-## Customization
-
-- Edit `src/styles/globals.css` for styling
-- Edit data arrays in `src/app/page.js` for content
-- Update `metadataBase` in `layout.js` for your domain
-
-## License
-
-MIT
+* **CamData:** A dashboard for Cambodian gov data (exchange rates, air quality) 
+* **PhishBlasters:** Cybersecurity education for ASEAN students 
+* **Math Books:** Two volumes of olympiad problems distributed across Cambodia 
+* **Learning:** Data viz, ML, and how to not break production 
