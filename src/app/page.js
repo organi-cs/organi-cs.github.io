@@ -1,375 +1,414 @@
-import Nav from '@/components/Nav'
-import Panel from '@/components/Panel'
-import ExpandableCard from '@/components/ExpandableCard'
-import ImageModal from '@/components/ImageModal'
-import BlogPopup from '@/components/BlogPopup'
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
-// Data
-const organizations = [
-  {
-    id: 'cslc',
-    name: 'CAMBODIAN STUDENT LEADERSHIP COUNCIL',
-    logo: '/logos/cslc.png',
-    role: 'Lead Technician & Head of PR',
-    description: 'I run all the tech stuff and handle public communications. That means managing our digital systems, designing promo materials, running social media, and making sure information actually reaches students and partner organizations.',
-    highlights: [
-      'CSLC Tutoring: Led tutoring sessions for 50+ students over 2 months — 90% of them went on to win medals (bronze to silver)',
-      'CSLC Math Warriors: Organized a SIMOC Singapore \'25 prep program — 200 students, 4 training sessions, all the logistics',
-      'CSLC Chess Competition: Ran a nationwide tournament with 100+ players across grades 4-12'
-    ],
-    website: 'https://www.cambodiaslc.org/'
-  },
-  {
-    id: 'ijhs',
-    name: 'INTERNATIONAL JUNIOR HONOUR SOCIETY',
-    logo: '/logos/ijhs.png',
-    role: '5th in Cambodia & Communications Team',
-    description: 'Got in for academics, leadership, and community service. Ranked 5th highest IJHS points nationally, then joined the Global Student Leadership Council to do graphic design and visual content for international campaigns.',
-    highlights: [
-      'Ranked 5th highest IJHS points in Cambodia',
-      'Joined GSLC Communications — designed graphics for international campaigns',
-      'Helped run YALA Camp in Shenzhen, China — coordinated activities for 171 participants'
-    ],
-    website: 'https://ijhscommunity.org/'
-  },
-  {
-    id: 'ymo',
-    name: 'YOUTH MATHEMATICS ORGANIZATION',
-    logo: '/logos/ymo.png',
-    role: 'Tech Lead & Senior Tutor',
-    description: 'I keep the tech running, tutor students for olympiads, write competition problems, and help organize YMO and PWTMC events. Basically the person who makes sure things don\'t break and students are prepared.',
-    highlights: [
-      'Tutor 20+ students on advanced olympiad problem-solving',
-      'Maintain all technical systems (especially during registration rushes)',
-      'Write and review competition problems',
-      'Key organizer for YMO and PWTMC events'
-    ],
-    website: 'https://www.ymocambodia.org/'
-  },
-  {
-    id: 'spark',
-    name: 'PHISHBLASTERS / SPARK',
-    logo: '/logos/spark.png',
-    role: 'Co-Founder & Lead Developer',
-    description: 'Co-founded a cybersecurity education platform for ASEAN students. I\'m the only developer — built the whole thing from scratch, manage the product roadmap, and figure out how to get users.',
-    highlights: [
-      'Built the entire platform solo from zero',
-      'Currently serving ~10 monthly active users',
-      'Working on a major redesign to improve UX and add new features'
-    ],
-    website: 'https://redesigned-phishblasters.vercel.app/'
-  }
-]
-
-const projects = [
-  {
-    icon: 'DATA',
-    title: 'CAMDATA',
-    subtitle: 'Cambodian Government Data Dashboard',
-    status: 'WIP',
-    statusType: 'wip',
-    description: 'Cambodia has tons of public data (exchange rates, air quality, stocks) but it\'s scattered across government sites in annoying formats. CamData pulls it all into one dashboard so researchers, journalists, and regular people can actually use it.',
-    features: [
-      'Live NBC exchange rates and provincial air quality data',
-      'Interactive stock market charts',
-      'Export to CSV/JSON for your own analysis',
-      'Working on: automated data fetching and caching'
-    ],
-    featureLabel: 'FEATURES',
-    tech: ['PYTHON', 'STREAMLIT', 'PLOTLY', 'PANDAS'],
-    link: 'https://github.com/organi-cs/camdata',
-    solo: true
-  },
-  {
-    icon: 'SEC',
-    title: 'PHISHBLASTERS',
-    subtitle: 'Cybersecurity Education Platform',
-    status: 'WIP',
-    statusType: 'wip',
-    description: 'Teaching ASEAN students how to not get hacked. Interactive lessons, fake phishing scenarios to practice on, and a progression system to keep people engaged. Built the whole thing myself.',
-    features: [
-      'Interactive lessons with instant feedback',
-      'Realistic phishing simulations (safe to fail)',
-      'Learning paths and achievement tracking',
-      'Coming soon: user accounts and backend auth'
-    ],
-    featureLabel: 'FEATURES',
-    tech: ['JAVASCRIPT', 'REACT', 'VERCEL'],
-    link: 'https://redesigned-phishblasters.vercel.app/',
-    solo: false
-  },
-  {
-    icon: 'ML',
-    title: 'FIBER ANALYSIS',
-    subtitle: 'ML for Forensic Fiber ID',
-    status: 'WIP',
-    statusType: 'wip',
-    description: 'Forensic fiber analysis is usually done manually under a microscope — slow and subjective. I built an ML model that looks at fiber images and classifies them automatically. Faster, more consistent, 95%+ accurate.',
-    features: [
-      '95%+ accuracy on test data',
-      'Collected and labeled my own dataset of fiber samples',
-      'OpenCV for image preprocessing',
-      'Scikit-Learn for classification'
-    ],
-    featureLabel: 'RESULTS',
-    tech: ['PYTHON', 'OPENCV', 'SCIKIT-LEARN', 'NUMPY'],
-    solo: true
-  },
-  {
-    icon: 'VIZ',
-    title: 'ALGO SIMULATIONS',
-    subtitle: 'Interactive Algorithm Visualizer',
-    status: 'PLANNED',
-    statusType: 'wip',
-    description: 'Algorithms make way more sense when you can see them. Building a tool to visualize sorting, pathfinding, physics, and fractals — partly to learn, partly to help others understand.',
-    features: [
-      'Sorting visualizer (Merge Sort, Quick Sort, etc.)',
-      'Pathfinding (A*, Dijkstra) on interactive grids',
-      'Physics simulations and collision detection',
-      'Fractal generators to visualize recursion'
-    ],
-    featureLabel: 'PLANNED',
-    tech: ['JAVASCRIPT', 'HTML5 CANVAS'],
-    solo: true
-  },
-  {
-    icon: 'BOOK',
-    title: 'MATH OLYMPIAD BOOKS',
-    subtitle: 'Problem Collection Series',
-    status: 'WIP',
-    statusType: 'wip',
-    description: 'When I started competitive math, good resources in Cambodia were hard to find. So I made my own — two volumes covering algebra, geometry, number theory, and combinatorics with detailed solutions.',
-    features: [
-      '2 volumes, 500+ pages of problems and solutions',
-      'Step-by-step proofs with alternative approaches',
-      'Problems selected from past competitions + original ones',
-      '300+ copies distributed to schools and math clubs'
-    ],
-    featureLabel: 'DETAILS',
-    solo: true
-  }
-]
-
-const achievements = [
-  {
-    name: 'SINGAPORE INTERNATIONAL MATH COMPETITION',
-    subtitle: 'World Rank ~8',
-    badge: 'GOLD',
-    badgeType: 'badge-gold',
-    description: 'Competed against students from 30+ countries. Ranked approximately 8th globally out of thousands of participants.'
-  },
-  {
-    name: 'AMERICAN MATHEMATICS OLYMPIAD',
-    subtitle: 'National Rank 3',
-    badge: 'GOLD',
-    badgeType: 'badge-gold',
-    description: 'Achieved 3rd place nationally in Cambodia\'s AMO competition. Problems covered advanced algebra, geometry, and combinatorics.'
-  },
-  {
-    name: 'NATIONAL OUTSTANDING STUDENT (MATH)',
-    subtitle: 'MoEYS Cambodia',
-    badge: 'RANK 3',
-    badgeType: 'badge-gold',
-    description: 'Recognized by the Ministry of Education, Youth and Sport of Cambodia for excellence in mathematics.'
-  },
-  {
-    name: 'MATH OLYMPIAD BOOK SERIES',
-    subtitle: '2 Volumes Published',
-    badge: '300+ COPIES',
-    badgeType: 'badge-special',
-    description: 'Authored and self-published two books of olympiad problems with solutions. Distributed to schools and math clubs across Cambodia.'
-  },
-  {
-    name: 'NATIONAL JUNIOR CYBERSECURITY OLYMPIAD',
-    subtitle: 'NUS Singapore',
-    badge: 'BRONZE',
-    badgeType: 'badge-bronze',
-    description: 'Competed in cybersecurity challenges covering cryptography, web security, forensics, and network security.'
-  }
-]
-
-// Organization Card Component
-function OrgCard({ org }) {
+/* ── Expandable project details ── */
+function ProjectDetails({ id, children }) {
+  const [open, setOpen] = useState(false)
   return (
-    <ExpandableCard
-      icon={org.id.toUpperCase().slice(0, 4)}
-      title={org.name}
-      subtitle={org.role}
-    >
-      <div className="detail-section">
-        <div className="detail-label">ROLE</div>
-        <p className="detail-text" style={{ color: 'var(--accent-blue)', fontFamily: "'Press Start 2P', cursive", fontSize: '10px' }}>
-          {org.role.toUpperCase()}
-        </p>
+    <>
+      <div className={`project-details ${open ? 'open' : ''}`} id={id}>
+        {children}
       </div>
-      <div className="detail-section">
-        <p className="detail-text">{org.description}</p>
-      </div>
-      {org.highlights && (
-        <div className="detail-section">
-          <div className="detail-label">HIGHLIGHTS</div>
-          <ul className="detail-list">
-            {org.highlights.map((h, i) => <li key={i}>{h}</li>)}
-          </ul>
-        </div>
-      )}
-      <a href={org.website} className="link-btn" target="_blank" rel="noopener noreferrer">VISIT WEBSITE</a>
-    </ExpandableCard>
+      <button
+        className="project-toggle"
+        onClick={() => setOpen(!open)}
+      >
+        {open ? '- show less' : '+ show more'}
+      </button>
+    </>
   )
 }
 
-// Achievement Card Component  
-function AchievementCard({ achievement }) {
+/* ── Org logo with fallback ── */
+function OrgLogo({ src, alt, fallback }) {
+  const [err, setErr] = useState(false)
+  if (err) return <div className="org-logo"><span className="org-logo-text">{fallback}</span></div>
   return (
-    <ExpandableCard
-      icon="★"
-      title={achievement.name}
-      subtitle={achievement.subtitle}
-      status={achievement.badge}
-      statusType={achievement.badgeType.replace('badge-', '')}
-    >
-      <p className="detail-text">{achievement.description}</p>
-    </ExpandableCard>
+    <div className="org-logo">
+      <img src={src} alt={alt} onError={() => setErr(true)} />
+    </div>
+  )
+}
+
+/* ── Org expandable highlights ── */
+function OrgDetails({ children }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <div className={`project-details ${open ? 'open' : ''}`}>
+        <div className="project-detail-label">Highlights</div>
+        {children}
+      </div>
+      <button className="project-toggle" onClick={() => setOpen(!open)}>
+        {open ? '- less' : '+ highlights'}
+      </button>
+    </>
+  )
+}
+
+/* ── Avatar with fallback ── */
+function Avatar() {
+  const [err, setErr] = useState(false)
+  if (err) return <div className="avatar-frame"><div className="avatar-placeholder">SK</div></div>
+  return (
+    <div className="avatar-frame">
+      <img src="/photo.png" alt="Samputhy Khim" onError={() => setErr(true)} />
+    </div>
   )
 }
 
 export default function Home() {
+  const pageRef = useRef(null)
+
+  useEffect(() => {
+    // Scroll reveal
+    const els = document.querySelectorAll('.pop')
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('v')
+          obs.unobserve(e.target)
+        }
+      })
+    }, { threshold: 0.06 })
+    els.forEach(el => obs.observe(el))
+
+    return () => { obs.disconnect() }
+  }, [])
+
   return (
-    <>
-      <Nav />
-      <BlogPopup />
-      
-      <div className="container">
-        {/* About Section */}
-        <section id="about">
-          <Panel title="PLAYER INFO">
-            <div className="hero-content">
-              <ImageModal src="/photo.png" alt="Samputhy Khim">
-                <div className="avatar-frame">
-                  <img src="/photo.png" alt="Samputhy" className="smooth-render" />
-                </div>
-              </ImageModal>
-              
-              <div className="hero-info">
-                <h1 className="hero-name">SAMPUTHY KHIM</h1>
-                <p className="hero-tagline">Grade 12 @ Westland International School, Cambodia</p>
-                <p className="hero-bio">
-                  Into data science, ML, and making Cambodian public data less painful to access. 
-                  I design posters, tutor kids, and explain why math is cool to people who didn't ask. 
-                  In student orgs, I fix things and make things look nice.
-                </p>
-                <div className="hero-contact">
-                  <a href="mailto:wis.chester.08@gmail.com" className="contact-btn">EMAIL</a>
-                  <a href="https://github.com/organi-cs" className="contact-btn">GITHUB</a>
-                  <a href="https://www.linkedin.com/in/samputhy-khim-a159b1339/" className="contact-btn">LINKEDIN</a>
-                </div>
-              </div>
-            </div>
-          </Panel>
-        </section>
+    <div className="page" ref={pageRef}>
 
-        {/* Organizations */}
-        <section id="orgs">
-          <Panel title="ORGANIZATIONS">
-            {organizations.map(org => (
-              <OrgCard key={org.id} org={org} />
-            ))}
-          </Panel>
-        </section>
-
-        {/* Projects */}
-        <section id="projects">
-          <Panel title="PROJECTS">
-            {projects.map((project, i) => (
-              <ExpandableCard
-                key={i}
-                icon={project.icon}
-                title={project.title}
-                subtitle={project.subtitle}
-                status={project.status}
-                statusType={project.statusType}
-              >
-                <div className="detail-section">
-                  <div className="detail-label">DESCRIPTION</div>
-                  <p className="detail-text">{project.description}</p>
-                  {project.solo && (
-                    <p className="detail-text" style={{ marginTop: '8px', fontStyle: 'italic', color: '#666' }}>
-                      Solo project
-                    </p>
-                  )}
-                </div>
-                
-                {project.features && (
-                  <div className="detail-section">
-                    <div className="detail-label">{project.featureLabel || 'FEATURES'}</div>
-                    <ul className="detail-list">
-                      {project.features.map((f, j) => <li key={j}>{f}</li>)}
-                    </ul>
-                  </div>
-                )}
-                
-                {project.tech && (
-                  <div className="detail-section">
-                    <div className="detail-label">TECH STACK</div>
-                    <div className="tech-tags">
-                      {project.tech.map((t, j) => (
-                        <span key={j} className="tech-tag">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {project.link && (
-                  <a href={project.link} className="link-btn" target="_blank" rel="noopener noreferrer">
-                    {project.link.includes('github') ? 'VIEW ON GITHUB' : 'VIEW PROJECT'}
-                  </a>
-                )}
-              </ExpandableCard>
-            ))}
-          </Panel>
-        </section>
-
-        {/* Achievements */}
-        <section id="achievements">
-          <Panel title="ACHIEVEMENTS">
-            {achievements.map((ach, i) => (
-              <AchievementCard key={i} achievement={ach} />
-            ))}
-          </Panel>
-        </section>
-
-        {/* Files */}
-        <section id="files">
-          <Panel title="FILES / DOWNLOADS">
-            <div className="files-grid">
-              <a href="/files/cv.pdf" className="file-item" download>
-                <div className="file-icon">
-                  <span className="file-icon-text">DOC</span>
-                </div>
-                <div className="file-name">MY CV</div>
-                <div className="file-size">Resume / Curriculum Vitae</div>
-                <span className="file-type">PDF</span>
-              </a>
-              
-              <a href="/files/photos.zip" className="file-item" download>
-                <div className="file-icon">
-                  <span className="file-icon-text">IMG</span>
-                </div>
-                <div className="file-name">PHOTOS</div>
-                <div className="file-size">Events & Activities</div>
-                <span className="file-type">ZIP</span>
-              </a>
-            </div>
-          </Panel>
-        </section>
-
-        {/* Footer */}
-        <footer className="footer">
-          <p className="footer-quote">"Slowly building things, one commit at a time."</p>
-          <p className="footer-text">SAMPUTHY // CAMBODIA // 2025</p>
-        </footer>
+      {/* NAV */}
+      <div className="topbar pop">
+        <Link href="/" className="topbar-name">samputhy.kh</Link>
+        <ul className="topbar-links">
+          <li><a href="#orgs" className="topbar-link">orgs</a></li>
+          <li><a href="#projects" className="topbar-link">projects</a></li>
+          <li><a href="#achievements" className="topbar-link">achievements</a></li>
+          <li><Link href="/blog" className="topbar-link">blog</Link></li>
+          <li><a href="https://github.com/organi-cs" target="_blank" rel="noopener" className="topbar-link">github</a></li>
+        </ul>
       </div>
-    </>
+
+      {/* HERO */}
+      <div className="hero-card card pop">
+        <div className="tape tape-tr" />
+        <div className="hero-top">
+          <Avatar />
+          <div className="hero-info">
+            <div className="hero-stamp">Student Developer</div>
+            <h1 className="hero-name">Samputhy <span className="hl">Khim</span></h1>
+            <p className="hero-tagline">Student from Cambodia</p>
+            <p className="hero-bio">
+              Into <strong>data science</strong>, <strong>ML</strong>, and making Cambodian public data less painful to access.
+              I design posters, tutor kids, and explain why math is cool to people who didn&apos;t ask.
+              In student orgs, I fix things and make things look nice.
+            </p>
+            <div className="hero-links">
+              <a href="mailto:wis.chester.08@gmail.com" className="hero-link">email</a>
+              <a href="https://github.com/organi-cs" target="_blank" rel="noopener" className="hero-link">github</a>
+              <a href="https://www.linkedin.com/in/samputhy-khim-a159b1339/" target="_blank" rel="noopener" className="hero-link">linkedin</a>
+            </div>
+            <div className="hero-scribble">~ slowly building things, one commit at a time</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ORGANIZATIONS */}
+      <div className="section-label pop" id="orgs">organizations</div>
+      <div className="org-grid">
+        <div className="org-card card pop">
+          <OrgLogo src="/logos/cslc.png" alt="CSLC" fallback="CSLC" />
+          <div className="org-name">Cambodian Student Leadership Council</div>
+          <div className="org-role">lead technician &amp; head of PR</div>
+          <p className="org-desc">I run all the tech stuff and handle public communications — managing digital systems, designing promo materials, and running social media.</p>
+          <OrgDetails>
+            <ul className="project-detail-list">
+              <li>CSLC Tutoring: Led sessions for 50+ students — 90% went on to win medals</li>
+              <li>CSLC Math Warriors: Organized SIMOC Singapore &apos;25 prep — 200 students, 4 sessions</li>
+              <li>CSLC Chess Competition: Ran a nationwide tournament, 100+ players across grades 4-12</li>
+            </ul>
+          </OrgDetails>
+          <span className="org-sep">|</span>
+          <a href="https://www.cambodiaslc.org/" target="_blank" rel="noopener" className="project-link">website</a>
+        </div>
+        <div className="org-card card pop">
+          <OrgLogo src="/logos/ijhs.png" alt="IJHS" fallback="IJHS" />
+          <div className="org-name">International Junior Honour Society</div>
+          <div className="org-role">5th in Cambodia &amp; communications team</div>
+          <p className="org-desc">Ranked 5th highest IJHS points nationally. Joined the Global Student Leadership Council for graphic design and visual content for international campaigns.</p>
+          <OrgDetails>
+            <ul className="project-detail-list">
+              <li>Ranked 5th highest IJHS points in Cambodia</li>
+              <li>GSLC Communications — designed graphics for international campaigns</li>
+              <li>Helped run YALA Camp in Shenzhen, China — 171 participants</li>
+            </ul>
+          </OrgDetails>
+          <span className="org-sep">|</span>
+          <a href="https://ijhscommunity.org/" target="_blank" rel="noopener" className="project-link">website</a>
+        </div>
+        <div className="org-card card pop">
+          <OrgLogo src="/logos/ymo.png" alt="YMO" fallback="YMO" />
+          <div className="org-name">Youth Mathematics Organization</div>
+          <div className="org-role">tech lead &amp; senior tutor</div>
+          <p className="org-desc">I keep the tech running, tutor students for olympiads, write competition problems, and help organize YMO and PWTMC events.</p>
+          <OrgDetails>
+            <ul className="project-detail-list">
+              <li>Tutor 20+ students on advanced olympiad problem-solving</li>
+              <li>Maintain all technical systems (especially during registration rushes)</li>
+              <li>Write and review competition problems</li>
+              <li>Key organizer for YMO and PWTMC events</li>
+            </ul>
+          </OrgDetails>
+          <span className="org-sep">|</span>
+          <a href="https://www.ymocambodia.org/" target="_blank" rel="noopener" className="project-link">website</a>
+        </div>
+        <div className="org-card card pop">
+          <OrgLogo src="/logos/spark.png" alt="SPARK" fallback="SPARK" />
+          <div className="org-name">PhishBlasters / Spark</div>
+          <div className="org-role">co-founder &amp; lead developer</div>
+          <p className="org-desc">Co-founded a cybersecurity education platform for ASEAN students. I&apos;m the only developer — built the whole thing from scratch.</p>
+          <OrgDetails>
+            <ul className="project-detail-list">
+              <li>Built the entire platform solo from zero</li>
+              <li>Currently serving ~10 monthly active users</li>
+              <li>Working on a major redesign to improve UX</li>
+            </ul>
+          </OrgDetails>
+          <span className="org-sep">|</span>
+          <a href="https://redesigned-phishblasters.vercel.app/" target="_blank" rel="noopener" className="project-link">website</a>
+        </div>
+      </div>
+
+      {/* PROJECTS */}
+      <div className="section-label pop" id="projects">projects</div>
+      <div className="project-grid">
+
+        {/* CamData */}
+        <div className="project-card card pop">
+          <div className="project-bar project-bar-1" />
+          <div className="project-body">
+            <div className="project-top">
+              <h3 className="project-name">CamData</h3>
+              <span className="project-status status-wip">wip</span>
+            </div>
+            <p className="project-sub">Cambodian Government Data Dashboard</p>
+            <p className="project-desc">Cambodia has tons of public data but it&apos;s scattered across government sites in annoying formats. CamData pulls it all into one dashboard so people can actually use it.</p>
+            <div className="project-tags">
+              <span className="project-tag">Python</span>
+              <span className="project-tag">Streamlit</span>
+              <span className="project-tag">Plotly</span>
+              <span className="project-tag">Pandas</span>
+            </div>
+            <ProjectDetails id="det-camdata">
+              <div className="project-detail-label">Features</div>
+              <ul className="project-detail-list">
+                <li>Live NBC exchange rates and provincial air quality data</li>
+                <li>Interactive stock market charts</li>
+                <li>Export to CSV/JSON for your own analysis</li>
+                <li>Working on: automated data fetching and caching</li>
+              </ul>
+            </ProjectDetails>
+            <span className="project-solo">solo project</span>
+            <br />
+            <a href="https://github.com/organi-cs/camdata" target="_blank" rel="noopener" className="project-link">view on github</a>
+          </div>
+        </div>
+
+        {/* PhishBlasters */}
+        <div className="project-card card pop">
+          <div className="project-bar project-bar-2" />
+          <div className="project-body">
+            <div className="project-top">
+              <h3 className="project-name">PhishBlasters</h3>
+              <span className="project-status status-wip">wip</span>
+            </div>
+            <p className="project-sub">Cybersecurity Education Platform</p>
+            <p className="project-desc">Teaching ASEAN students how to not get hacked. Interactive lessons, fake phishing scenarios to practice on, and a progression system to keep people engaged.</p>
+            <div className="project-tags">
+              <span className="project-tag">JavaScript</span>
+              <span className="project-tag">React</span>
+              <span className="project-tag">Vercel</span>
+            </div>
+            <ProjectDetails id="det-phish">
+              <div className="project-detail-label">Features</div>
+              <ul className="project-detail-list">
+                <li>Interactive lessons with instant feedback</li>
+                <li>Realistic phishing simulations (safe to fail)</li>
+                <li>Learning paths and achievement tracking</li>
+                <li>Coming soon: user accounts and backend auth</li>
+              </ul>
+            </ProjectDetails>
+            <br />
+            <a href="https://redesigned-phishblasters.vercel.app/" target="_blank" rel="noopener" className="project-link">live site</a>
+          </div>
+        </div>
+
+        {/* Fiber Analysis */}
+        <div className="project-card card pop">
+          <div className="project-bar project-bar-3" />
+          <div className="project-body">
+            <div className="project-top">
+              <h3 className="project-name">Fiber Analysis</h3>
+              <span className="project-status status-wip">wip</span>
+            </div>
+            <p className="project-sub">ML for Forensic Fiber ID</p>
+            <p className="project-desc">Forensic fiber analysis is usually done manually under a microscope — slow and subjective. I built an ML model that classifies them automatically. Faster, more consistent, 95%+ accurate.</p>
+            <div className="project-tags">
+              <span className="project-tag">Python</span>
+              <span className="project-tag">OpenCV</span>
+              <span className="project-tag">Scikit-learn</span>
+              <span className="project-tag">NumPy</span>
+            </div>
+            <ProjectDetails id="det-fiber">
+              <div className="project-detail-label">Results</div>
+              <ul className="project-detail-list">
+                <li>95%+ accuracy on test data</li>
+                <li>Collected and labeled my own dataset of fiber samples</li>
+                <li>OpenCV for image preprocessing</li>
+                <li>Scikit-Learn for classification</li>
+              </ul>
+            </ProjectDetails>
+            <span className="project-solo">solo project</span>
+          </div>
+        </div>
+
+        {/* Algo Simulations */}
+        <div className="project-card card pop">
+          <div className="project-bar project-bar-4" />
+          <div className="project-body">
+            <div className="project-top">
+              <h3 className="project-name">Algo Simulations</h3>
+              <span className="project-status status-soon">planned</span>
+            </div>
+            <p className="project-sub">Interactive Algorithm Visualizer</p>
+            <p className="project-desc">Algorithms make way more sense when you can see them. Building a tool to visualize sorting, pathfinding, physics, and fractals.</p>
+            <div className="project-tags">
+              <span className="project-tag">JavaScript</span>
+              <span className="project-tag">HTML5 Canvas</span>
+            </div>
+            <ProjectDetails id="det-algo">
+              <div className="project-detail-label">Planned</div>
+              <ul className="project-detail-list">
+                <li>Sorting visualizer (Merge Sort, Quick Sort, etc.)</li>
+                <li>Pathfinding (A*, Dijkstra) on interactive grids</li>
+                <li>Physics simulations and collision detection</li>
+                <li>Fractal generators to visualize recursion</li>
+              </ul>
+            </ProjectDetails>
+            <span className="project-solo">solo project</span>
+          </div>
+        </div>
+
+        {/* Math Warriors */}
+        <div className="project-card card pop">
+          <div className="project-bar project-bar-5" />
+          <div className="project-body">
+            <div className="project-top">
+              <h3 className="project-name">Math Warriors</h3>
+              <span className="project-status status-wip">wip</span>
+            </div>
+            <p className="project-sub">Mental Math Training App</p>
+            <p className="project-desc">A web app to help students improve their mental math speed. Built for the CSLC Math Warriors program as part of SIMOC Singapore &apos;25 prep.</p>
+            <div className="project-tags">
+              <span className="project-tag">JavaScript</span>
+              <span className="project-tag">CSS</span>
+              <span className="project-tag">HTML</span>
+            </div>
+            <br />
+            <a href="https://github.com/organi-cs/math-warriors" target="_blank" rel="noopener" className="project-link">view on github</a>
+          </div>
+        </div>
+      </div>
+
+      {/* ACHIEVEMENTS */}
+      <div className="section-label pop" id="achievements">achievements</div>
+      <div className="achievement-list">
+        <div className="ach-card card pop">
+          <span className="ach-badge badge-gold">Gold</span>
+          <div className="ach-info">
+            <div className="ach-name">Singapore International Math Competition</div>
+            <div className="ach-sub">World Rank ~8</div>
+          </div>
+        </div>
+        <div className="ach-card card pop">
+          <span className="ach-badge badge-gold">Gold</span>
+          <div className="ach-info">
+            <div className="ach-name">American Mathematics Olympiad</div>
+            <div className="ach-sub">National Rank 3</div>
+          </div>
+        </div>
+        <div className="ach-card card pop">
+          <span className="ach-badge badge-gold">Rank 3</span>
+          <div className="ach-info">
+            <div className="ach-name">National Outstanding Student (Math)</div>
+            <div className="ach-sub">MoEYS Cambodia</div>
+          </div>
+        </div>
+        <div className="ach-card card pop">
+          <span className="ach-badge badge-special">200+</span>
+          <div className="ach-info">
+            <div className="ach-name">CSLC Math Warriors Program</div>
+            <div className="ach-sub">SIMOC Singapore &apos;25 Prep — 200 students trained</div>
+          </div>
+        </div>
+        <div className="ach-card card pop">
+          <span className="ach-badge badge-bronze">Bronze</span>
+          <div className="ach-info">
+            <div className="ach-name">National Junior Cybersecurity Olympiad</div>
+            <div className="ach-sub">NUS Singapore</div>
+          </div>
+        </div>
+      </div>
+
+      {/* BLOG */}
+      <div className="section-label pop" id="blog">blog</div>
+      <div className="blog-card card pop">
+        <div className="blog-header">
+          <h3>Posts</h3>
+          <span className="blog-new">new</span>
+        </div>
+        <div className="blog-posts">
+          <Link href="/blog" className="blog-post">
+            <span className="blog-date">coming<br />soon</span>
+            <div>
+              <div className="blog-post-title">First post loading...</div>
+              <div className="blog-post-desc">I started a blog where I write about math, coding, and random thoughts. Stay tuned.</div>
+            </div>
+          </Link>
+        </div>
+        <Link href="/blog" className="blog-cta">read all posts</Link>
+      </div>
+
+      {/* SPLIT: QUOTE + FILES */}
+      <div className="split">
+        <div className="card quote-card pop">
+          <div className="quote-text">&ldquo;Slowly building things, one commit at a time.&rdquo;</div>
+          <div className="quote-attr">— me, honestly</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <a href="/files/cv.pdf" download className="file-card card pop">
+            <div className="file-icon file-pdf">PDF</div>
+            <div className="file-info">
+              <h4>My CV</h4>
+              <p>Resume / Curriculum Vitae</p>
+            </div>
+          </a>
+          <a href="/files/photos.zip" download className="file-card card pop">
+            <div className="file-icon file-zip">ZIP</div>
+            <div className="file-info">
+              <h4>Photos</h4>
+              <p>Events &amp; Activities</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div className="footer-copy">made with care from cambodia</div>
+    </div>
   )
 }

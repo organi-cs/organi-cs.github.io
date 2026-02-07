@@ -6,8 +6,8 @@ export const metadata = {
     default: 'Samputhy Khim — Student, Developer, Math Enthusiast',
     template: '%s | Samputhy Khim'
   },
-  description: 'Samputhy Khim is a student from Cambodia interested in math, data science, and building tools that solve real problems. Gold medalist at SIMC, co-founder of PhishBlasters.',
-  keywords: ['Samputhy Khim', 'Cambodia', 'student', 'developer', 'math olympiad', 'data science', 'machine learning', 'PhishBlasters', 'CamData'],
+  description: 'Samputhy Khim (Khim Samputhy) is a student from Cambodia interested in math, data science, and building tools that solve real problems. Gold medalist at SIMC, co-founder of PhishBlasters.',
+  keywords: ['Samputhy Khim', 'Khim Samputhy', 'Cambodia', 'student', 'developer', 'math olympiad', 'data science', 'machine learning', 'PhishBlasters', 'CamData', 'CSLC', 'YMO Cambodia', 'cybersecurity education'],
   authors: [{ name: 'Samputhy Khim' }],
   creator: 'Samputhy Khim',
   openGraph: {
@@ -43,10 +43,6 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    // Add your Google Search Console verification code here
-    // google: 'your-verification-code',
-  },
 }
 
 export default function RootLayout({ children }) {
@@ -55,9 +51,12 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="canonical" href="https://organi-cs.github.io" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <div className="studs-bg" />
+        <div className="dot-bg" />
         {children}
       </body>
     </html>
