@@ -43,9 +43,6 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  icons: {
-    icon: '/favicon.ico',
-  },
 }
 
 const jsonLd = {
