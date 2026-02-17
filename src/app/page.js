@@ -190,6 +190,26 @@ export default function Home() {
 
         {/* CamData */}
         <div className="project-card card pop">
+          <div className="project-bar project-bar-6" />
+          <div className="project-body">
+            <div className="project-top">
+              <h3 className="project-name">GraphOS</h3>
+              <span className="project-status status-live">live</span>
+            </div>
+            <p className="project-sub">Premium ATAR Math Graph Tool</p>
+            <p className="project-desc">GraphOS is a premium tool for ATAR Mathematics Applications. Build graphs, analyze connectivity, and solve network flow problems directly in the browser.</p>
+            <div className="project-tags">
+              <span className="project-tag">React</span>
+              <span className="project-tag">Math</span>
+              <span className="project-tag">Graph Theory</span>
+            </div>
+            <br />
+            <a href="https://organi-cs.github.io/atar-graph-sim/" target="_blank" rel="noopener" className="project-link">live tool</a>
+          </div>
+        </div>
+
+        {/* CamData */}
+        <div className="project-card card pop">
           <div className="project-bar project-bar-1" />
           <div className="project-body">
             <div className="project-top">

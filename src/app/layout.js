@@ -52,6 +52,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Samputhy Khim',
+  alternateName: 'Khim Samputhy',
   url: 'https://organi-cs.github.io',
   sameAs: [
     'https://www.linkedin.com/in/samputhy-khim-a159b1339/',

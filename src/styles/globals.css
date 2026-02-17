@@ -354,6 +354,18 @@ body {
 .project-card:nth-child(odd):hover { transform: translateY(-4px) rotate(-0.5deg); }
 .project-card:nth-child(even):hover { transform: translateY(-4px) rotate(0.5deg); }
 
+.project-bar {
+  height: 6px;
+  width: 100%;
+}
+
+.project-bar-1 { background: var(--blue); }
+.project-bar-2 { background: var(--pink); }
+.project-bar-3 { background: var(--green); }
+.project-bar-4 { background: var(--yellow); }
+.project-bar-5 { background: var(--orange); }
+.project-bar-6 { background: var(--purple); }
+
 .project-body { padding: 1.6rem; }
 
 .project-top {
