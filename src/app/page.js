@@ -188,7 +188,36 @@ export default function Home() {
       <div className="section-label pop" id="projects">projects</div>
       <div className="project-grid">
 
-        {/* CamData */}
+        {/* MyGovWatch */}
+        <div className="project-card card pop">
+          <div className="project-bar project-bar-7" />
+          <div className="project-body">
+            <div className="project-top">
+              <h3 className="project-name">MyGovWatch</h3>
+              <span className="project-status status-live">live</span>
+            </div>
+            <p className="project-sub">Malaysia Open Data Tracker</p>
+            <p className="project-desc">A platform for tracking Malaysian government data. I completely overhauled the UI/UX, optimized performance to fix lagging issues, ensured cleaner data, and migrated the database to Supabase.</p>
+            <div className="project-tags">
+              <span className="project-tag">Supabase</span>
+              <span className="project-tag">UI/UX</span>
+              <span className="project-tag">Data Optimization</span>
+            </div>
+            <ProjectDetails id="det-mygovwatch">
+              <div className="project-detail-label">My Contributions</div>
+              <ul className="project-detail-list">
+                <li>Major lag optimization and data pipeline cleanup</li>
+                <li>Complete UI/UX design overhaul</li>
+                <li>Database migration and deployment through Supabase</li>
+                <li>Added QoL features including a USD to MYR converter</li>
+              </ul>
+            </ProjectDetails>
+            <br />
+            <a href="https://mygovwatch.org/" target="_blank" rel="noopener" className="project-link">live site</a>
+          </div>
+        </div>
+
+        {/* GraphOS */}
         <div className="project-card card pop">
           <div className="project-bar project-bar-6" />
           <div className="project-body">

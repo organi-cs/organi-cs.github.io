@@ -43,6 +43,9 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: 'https://organi-cs.github.io/',
+  },
 }
 
 const jsonLd = {
