@@ -185,7 +185,10 @@ export default function Home() {
       </div>
 
       {/* PROJECTS */}
-      <div className="section-label pop" id="projects">projects</div>
+      <div className="pop" id="projects" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem', marginBottom: '0.7rem' }}>
+        <div className="section-label" style={{ margin: 0 }}>pinned</div>
+        <Link href="/projects" className="topbar-link" style={{ margin: 0 }}>view more</Link>
+      </div>
       <div className="project-grid">
 
         {/* MyGovWatch */}
@@ -325,34 +328,6 @@ export default function Home() {
             <span className="project-solo">solo project</span>
           </div>
         </div>
-
-        {/* Algo Simulations */}
-        <div className="project-card card pop">
-          <div className="project-bar project-bar-4" />
-          <div className="project-body">
-            <div className="project-top">
-              <h3 className="project-name">Algo Simulations</h3>
-              <span className="project-status status-soon">planned</span>
-            </div>
-            <p className="project-sub">Interactive Algorithm Visualizer</p>
-            <p className="project-desc">Algorithms make way more sense when you can see them. Building a tool to visualize sorting, pathfinding, physics, and fractals.</p>
-            <div className="project-tags">
-              <span className="project-tag">JavaScript</span>
-              <span className="project-tag">HTML5 Canvas</span>
-            </div>
-            <ProjectDetails id="det-algo">
-              <div className="project-detail-label">Planned</div>
-              <ul className="project-detail-list">
-                <li>Sorting visualizer (Merge Sort, Quick Sort, etc.)</li>
-                <li>Pathfinding (A*, Dijkstra) on interactive grids</li>
-                <li>Physics simulations and collision detection</li>
-                <li>Fractal generators to visualize recursion</li>
-              </ul>
-            </ProjectDetails>
-            <span className="project-solo">solo project</span>
-          </div>
-        </div>
-
         {/* Math Warriors */}
         <div className="project-card card pop">
           <div className="project-bar project-bar-5" />
